@@ -1,0 +1,25 @@
+{
+  "name": "country-browser-game",
+  "version": "1.0.0",
+  "description": "Match the country to the name",
+  "main": "./src/server.js",
+  "scripts": {
+    "start": "node ./src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CalumForsterDev/country-browser-game.git"
+  },
+  "author": "Calum Forster",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CalumForsterDev/country-browser-game/issues"
+  },
+  "homepage": "https://github.com/CalumForsterDev/country-browser-game#readme",
+  "dependencies": {
+    "express": "^4.14.1",
+    "path": "^0.12.7",
+    "winston": "^2.3.1"
+  }
+}
