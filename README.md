@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/CalumForsterDev/country-browser-game.svg?branch=master)](https://travis-ci.org/CalumForsterDev/country-browser-game)
 
-# country-browser-game
-Match the country to the name
+# Multiplayer Puzzle Game
+A fast paced competitive puzzle solving game. Inspiration taken from the single player game [jumbo jav ban haasteren](http://jumbo-jan-van-haasteren.fbrq.io/jumbo-jan-van-haasteren/index.html)
 
 
 ## Rough Development Plan
