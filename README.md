@@ -1,10 +1,13 @@
 [![Build Status](https://travis-ci.org/CalumForsterDev/country-browser-game.svg?branch=master)](https://travis-ci.org/CalumForsterDev/country-browser-game)
 
+Any help would be appreciated. The issues are really vague at the time of writing and so any pull requests will probably be accepted, regardless of how you solved the issue.
+When working on backend features, try to add tests to the `test/` directory. These are run with [mocha](https://mochajs.org/).
+
 # Multiplayer Puzzle Game
 A fast paced competitive puzzle solving game. Inspiration taken from the single player game [jumbo jav ban haasteren](http://jumbo-jan-van-haasteren.fbrq.io/jumbo-jan-van-haasteren/index.html)
 
 ## Game States
-The game states are all defined inside `src/public/js/states/`. These are where the game home page and different options are created. 
+The game states are all defined inside `src/public/js/states/`. These are where the game home page and different options are created.
 
 
 ## Rough Development Plan
