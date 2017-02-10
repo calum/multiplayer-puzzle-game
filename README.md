@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/CalumForsterDev/country-browser-game.svg?branch=master)](https://travis-ci.org/CalumForsterDev/country-browser-game)
+[![Build Status](https://travis-ci.org/CalumForsterDev/country-browser-game.svg?branch=master)](https://travis-ci.org/CalumForsterDev/multiplayer-puzzle-game)
 
 Any help would be appreciated. The issues are really vague at the time of writing and so any pull requests will probably be accepted, regardless of how you solved the issue.
 When working on backend features, try to add tests to the `test/` directory. These are run with [mocha](https://mochajs.org/).
