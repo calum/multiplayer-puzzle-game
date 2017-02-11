@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/CalumForsterDev/multiplayer-puzzle-game.png?label=ready&title=Ready)](https://waffle.io/CalumForsterDev/multiplayer-puzzle-game)
 [![Build Status](https://travis-ci.org/CalumForsterDev/country-browser-game.svg?branch=master)](https://travis-ci.org/CalumForsterDev/country-browser-game)
 
 Any help would be appreciated. The issues are really vague at the time of writing and so any pull requests will probably be accepted, regardless of how you solved the issue.
