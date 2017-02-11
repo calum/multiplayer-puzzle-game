@@ -20,6 +20,16 @@ var gamelobbyState = {
     var qkey = game.input.keyboard.addKey(Phaser.Keyboard.Q);
     var ekey = game.input.keyboard.addKey(Phaser.Keyboard.E);
 
+    // Setup text event for clicks
+    startLabel.inputEnabled = true;
+    startLabel.events.onInputDown.add(this.startGame, this);
+
+    selectpuzzleLabel.inputEnabled = true;
+    selectpuzzleLabel.events.onInputDown.add(this.selectpuzzle, this);
+
+    closelobbyLabel.inputEnabled = true;
+    closelobbyLabel.events.onInputDown.add(this.close, this);
+
 
     // When "w" is pressed, call the start function
     qkey.onDown.addOnce(this.startGame, this);

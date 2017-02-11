@@ -2,7 +2,8 @@
 /**
 * Create a game 640 pixels by 480 pixels
 **/
-var game = new Phaser.Game(640, 480, Phaser.AUTO, 'gameDiv');
+var game = new Phaser.Game("100%", "100%", Phaser.AUTO, 'gameDiv');
+// Should also be a function for onResize
 
 // We add each state
 game.state.add('boot', bootState);

@@ -1,5 +1,7 @@
-[![Stories in Ready](https://badge.waffle.io/CalumForsterDev/multiplayer-puzzle-game.png?label=ready&title=Ready)](https://waffle.io/CalumForsterDev/multiplayer-puzzle-game)
-[![Build Status](https://travis-ci.org/CalumForsterDev/country-browser-game.svg?branch=master)](https://travis-ci.org/CalumForsterDev/country-browser-game)
+[![Build Status](https://travis-ci.org/CalumForsterDev/country-browser-game.svg?branch=master)](https://travis-ci.org/CalumForsterDev/multiplayer-puzzle-game)
+
+[![Stories in Ready](https://badge.waffle.io/CalumForsterDev/multiplayer-puzzle-game.svg?label=ready&title=Ready)](http://waffle.io/CalumForsterDev/multiplayer-puzzle-game)
+
 
 Any help would be appreciated. The issues are really vague at the time of writing and so any pull requests will probably be accepted, regardless of how you solved the issue.
 When working on backend features, try to add tests to the `test/` directory. These are run with [mocha](https://mochajs.org/).
@@ -24,3 +26,5 @@ The game states are all defined inside `src/public/js/states/`. These are where 
 * Release 0.9 - users can create personal puzzles
 
 * Release 1.0 - Competitive multiplayer puzzle game
+
+[![Throughput Graph](https://graphs.waffle.io/CalumForsterDev/multiplayer-puzzle-game/throughput.svg)](https://waffle.io/CalumForsterDev/multiplayer-puzzle-game/metrics/throughput)

@@ -18,11 +18,11 @@ var homeState = {
                     {font: '25px Arial', fill: '#ffffff'});
 
     var optionsLabel = game.add.text(80, game.world.height-80,
-                    'Multi Player (press "W")',
+                    'Options (press "E")',
                     {font: '25px Arial', fill: '#ffffff'});
 
     var multiplayerLabel = game.add.text(80, game.world.height-160,
-                    'Options (press "E")',
+                    'Multiplayer (press "W")',
                     {font: '25px Arial', fill: '#ffffff'});
 
     var wkey = game.input.keyboard.addKey(Phaser.Keyboard.W);
@@ -34,6 +34,14 @@ var homeState = {
     qkey.onDown.addOnce(this.singleplayer, this);
     wkey.onDown.addOnce(this.multiplayer, this);
     ekey.onDown.addOnce(this.options, this);
+
+    // Add clickable links:
+    singleplayerLabel.inputEnabled = true;
+    singleplayerLabel.events.onInputDown.add(this.singleplayer, this);
+    optionsLabel.inputEnabled = true;
+    optionsLabel.events.onInputDown.add(this.options, this);
+    multiplayerLabel.inputEnabled = true;
+    multiplayerLabel.events.onInputDown.add(this.multiplayer, this);
   },
 
 

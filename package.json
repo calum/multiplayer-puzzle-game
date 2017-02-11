@@ -5,7 +5,8 @@
   "main": "./src/server.js",
   "scripts": {
     "start": "node ./src/server.js",
-    "test": "./node_modules/.bin/mocha"
+    "test": "./node_modules/.bin/mocha",
+    "lint": "./node_modules/.bin/eslint *.js test/*.js src/*.js src/*/*.js src/*/*/*.js src/*/*/*/*.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
     "winston": "^2.3.1"
   },
   "devDependencies": {
+    "eslint": "^3.15.0",
     "mocha": "^3.2.0"
   }
 }

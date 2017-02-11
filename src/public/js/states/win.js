@@ -14,6 +14,10 @@ var winState = {
 
     // When "w" is pressed, call the start function
     wkey.onDown.addOnce(this.restart, this);
+
+    // Add clickable links:
+    startLabel.inputEnabled = true;
+    startLabel.events.onInputDown.add(this.restart, this);
   },
 
   restart: function() {
