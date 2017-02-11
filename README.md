@@ -1,6 +1,4 @@
-[![Build Status](https://travis-ci.org/CalumForsterDev/country-browser-game.svg?branch=master)](https://travis-ci.org/CalumForsterDev/multiplayer-puzzle-game)
-
-[![Stories in Ready](https://badge.waffle.io/CalumForsterDev/multiplayer-puzzle-game.svg?label=ready&title=Ready)](http://waffle.io/CalumForsterDev/multiplayer-puzzle-game)
+[![Build Status](https://travis-ci.org/CalumForsterDev/multiplayer-puzzle-game.svg?branch=frontend)](https://travis-ci.org/CalumForsterDev/multiplayer-puzzle-game) [![Stories in Ready](https://badge.waffle.io/CalumForsterDev/multiplayer-puzzle-game.svg?label=ready&title=Ready)](http://waffle.io/CalumForsterDev/multiplayer-puzzle-game)
 
 
 Any help would be appreciated. The issues are really vague at the time of writing and so any pull requests will probably be accepted, regardless of how you solved the issue.
