@@ -14,6 +14,10 @@ var optionsState = {
 
     // When "w" is pressed, call the start function
     ekey.onDown.addOnce(this.home, this);
+
+    // Add clickable links:
+    homeLabel.inputEnabled = true;
+    homeLabel.events.onInputDown.add(this.home, this);
   },
 
   home() {

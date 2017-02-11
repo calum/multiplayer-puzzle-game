@@ -28,7 +28,7 @@ var playState = {
     graphics.moveTo(0,0);
     graphics.drawRect(
       game.world.width*(gameBoardSize/2),
-      game.world.height*(1-gameBoardSize/2 - selectionAreaPercent-0.1),
+      game.world.height*(gameBoardSize/2 - selectionAreaPercent),
       game.world.width*(gameBoardSize),
       game.world.height*(gameBoardSize)
     );

@@ -32,6 +32,16 @@ var singleplayerState = {
     akey.onDown.addOnce(this.createpuzzle, this);
     wkey.onDown.addOnce(this.pickpuzzle, this);
     ekey.onDown.addOnce(this.home, this);
+
+    // Add clickable links:
+    quickStartLabel.inputEnabled = true;
+    quickStartLabel.events.onInputDown.add(this.quickstart, this);
+    pickPuzzle.inputEnabled = true;
+    pickPuzzle.events.onInputDown.add(this.pickpuzzle, this);
+    createPuzzle.inputEnabled = true;
+    createPuzzle.events.onInputDown.add(this.createpuzzle, this);
+    homeLabel.inputEnabled = true;
+    homeLabel.events.onInputDown.add(this.home, this);
   },
 
   quickstart: function() {

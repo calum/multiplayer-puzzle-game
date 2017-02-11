@@ -26,6 +26,14 @@ var multiplayerState = {
     qkey.onDown.addOnce(this.joinGame, this);
     wkey.onDown.addOnce(this.createGame, this);
     ekey.onDown.addOnce(this.home, this);
+
+    // Add clickable links:
+    joinGameLabel.inputEnabled = true;
+    joinGameLabel.events.onInputDown.add(this.joinGame, this);
+    createGameLabel.inputEnabled = true;
+    createGameLabel.events.onInputDown.add(this.createGame, this);
+    homeLabel.inputEnabled = true;
+    homeLabel.events.onInputDown.add(this.home, this);
   },
 
   joinGame: function() {
