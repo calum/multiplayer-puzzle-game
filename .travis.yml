@@ -1,19 +1,22 @@
 sudo: false
 language: node_js
 node_js:
-  - stable
+- stable
 script:
-  - npm test
+- npm test
 after_success:
-  - npm run report-coverage
+- npm run report-coverage
 deploy:
-      - provider: s3
-        ⋮ # rest of S3 deployment for MyApp.zip
-      - provider: codedeploy
-        access_key_id: "AKIAJYIN4UJJLXOJXNZA"
-        secret_access_key: ""
-        bucket: "calum-forster"
-        key: latest/MyApp.zip
-        application: Github-Calum-Forster
-        deployment_group: Calum-Forster
-        region: us-west-2
+  matrix:
+  - provider: s3
+  - provider: codedeploy
+    access_key_id: AKIAJYIN4UJJLXOJXNZA
+    secret_access_key: &1
+      secure: "J7gf+0fH4q2Nqg7e4QSMNE/JmVPw+iQB0N4ojThcjO4V9TtXoWS4x4CnVi+RZTnywfd3uah1vyiIW98Xjl/cw8XxloZ/jvhZ5XJXlCAvAGoV8p20gb54OtykM3IYqlkHgXWFWYEL0p1LYyF5r4MUnvYvQdqOLSU7Nx1CQkuQgwCCaP0dV6Vv6ZM1RLYq39GdeUxjCbsE0ZBZP8WNAjAJYhVbgAKRziVBNZ5EbeeSJ+2SNhx2hhTKLUZ+TD8yBg305rgXRaYnXldqq6cfvPSKii5MGlPSmjTK5CPPDlIqAfw9nmgdWMfr45mkmR08LogUJwtW3kkSooECsNnD17wA6dOpl0MtrLwN/1rtJjrXTwMKzUPVAM7NRAEgamyT69S66r2D/P4h3MK5ij5zoqg4PQoHiWS08UGcsPykpcpiebSboCE9VPsyinP1wvWCVv1epT0i0Dhp2EOtMRiWpqOcZJaK6CU50M2jIlDykvQz8zHhfuFVVXuk7SiQMZ28xKQLwEVLtclZuepUtb1DXN3bOPEuUT3Me3W5ovdYZGBtxQ3OmjqY2wimRmzyiFqQIDkU9/MVDKk7D0ibxg+8PMNK74opFCYwXjszxd7E7gEM7ZecZ7XyXCTdFdka7W6dlyTvdyi+f9b3zawMv0ans3L5MRvieVbPHAv5cuuk/CmC+wU="
+    bucket: calum-forster
+    key: latest/MyApp.zip
+    application: Github-Calum-Forster
+    deployment_group: Calum-Forster
+    region: us-west-2
+  secret_access_key:
+    secure: pkHfaZ9BSRv6KZnsCJAJP78b08o0iCXyE3XKSHVQurstXiZ+j9TqABlKHzjvUOGs4dZYnD0gwN0qEYNTy4nrwjfVhY3Kj4S8i8Qnz4h/EQkSkfqEZXS/QNlzbaajqcRftlWxVdSSgztsuRCc5TQ26rt/bftf47WT9NIOxhl0v+O34xN2lNpHfLwmK11izh9eKCDgL2nEa8rmC9rCHP2FZmJ0UmjuUHasaRIcLaDLiEM1maa1CQJLPB7zmDl695u40f/CxyoLAjJC+Xl304trbRHEpgMfsxcICLOWiSuWHNXblZiBfrn9NGKq0Z/KDuQwVx2B6smPLEsPqnC4BDJSHFUNnL2KUpb/pukGDSuB9gXdMA+8oMlnRoZpeP7QIJMF7yfxxG/TH3CNmMrXBiulQyso+RZYNo8dPgWKp9U15ostdRQHRulSm7dw0z1bEgq6cc9BcqtEZoxE9e6mAW8wvAYNfgDffnMAPzdqtZfgYbwXBl25eKJIKvlw4/DecNXxcVKOOBZtwjrPAw2iW1+ZH5PkobvC7I7cx2wHorHwlEoXB7Gf29oy//IVU8I6jXY91T906DFW0A+6Dfro3O8Qn21+gPVvgwoDBEhC4XMHuPfvfsgqhOemZD1GCSvIoxyhnDRj209MYIcKVhMlbiV95a4IoimtdZgMG4JdPGlgCGk=
