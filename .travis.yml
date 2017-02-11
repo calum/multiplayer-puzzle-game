@@ -6,3 +6,14 @@ script:
   - npm test
 after_success:
   - npm run report-coverage
+deploy:
+      - provider: s3
+        ⋮ # rest of S3 deployment for MyApp.zip
+      - provider: codedeploy
+        access_key_id: "AKIAJYIN4UJJLXOJXNZA"
+        secret_access_key: ""
+        bucket: "calum-forster"
+        key: latest/MyApp.zip
+        application: Github-Calum-Forster
+        deployment_group: Calum-Forster
+        region: us-west-2
