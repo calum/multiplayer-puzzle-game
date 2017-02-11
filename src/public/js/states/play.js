@@ -1,7 +1,7 @@
 // The percentage of the screen which the selection area
 // should take up
 const selectionAreaPercent = 0.2;
-const gameBoardSize = 0.5;
+const gameBoardSize = 0.7;
 
 var playState = {
 
@@ -24,14 +24,8 @@ var playState = {
       game.world.height*(selectionAreaPercent)
     );
 
-    // Draw the game board:
-    graphics.moveTo(0,0);
-    graphics.drawRect(
-      game.world.width*(gameBoardSize/2),
-      game.world.height*(gameBoardSize/2 - selectionAreaPercent),
-      game.world.width*(gameBoardSize),
-      game.world.height*(gameBoardSize)
-    );
+    // Draw the game board with the graphics object
+    gameboard.draw(graphics);
 
     // Fill the graphics objects
     graphics.endFill();
