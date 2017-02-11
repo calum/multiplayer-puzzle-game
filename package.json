@@ -5,8 +5,9 @@
   "main": "./src/server.js",
   "scripts": {
     "start": "node ./src/server.js",
-    "test": "./node_modules/.bin/mocha",
-    "lint": "./node_modules/.bin/eslint *.js test/*.js src/*.js src/*/*.js src/*/*/*.js src/*/*/*/*.js"
+    "test": "nyc mocha",
+    "lint": "./node_modules/.bin/eslint *.js test/*.js src/*.js src/*/*.js src/*/*/*.js src/*/*/*/*.js",
+    "report-coverage": "nyc report --reporter=lcov > coverage.lcov && codecov"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,13 @@
   },
   "devDependencies": {
     "eslint": "^3.15.0",
-    "mocha": "^3.2.0"
+    "mocha": "^3.2.0",
+    "ava": "^0.16.0",
+    "co-exec": "^1.0",
+    "codecov": "^1.0.1",
+    "ghooks": "^1.2.4",
+    "nyc": "^10.0.0",
+    "standard": "^8.4.0"
   }
+
 }
