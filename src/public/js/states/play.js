@@ -38,6 +38,8 @@ var playState = {
     this.win = game.add.sprite(256,256,'win');
     game.physics.enable(this.win, Phaser.Physics.ARCADE);
 
+    gameboard.addPuzzle();
+
   },
 
   update: function() {
@@ -61,6 +63,7 @@ var playState = {
     } else {
       this.player.body.velocity.y = 0;
     }
+
   },
 
   Win: function() {
