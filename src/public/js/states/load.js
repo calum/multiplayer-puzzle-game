@@ -18,7 +18,7 @@ var loadState = {
         game.load.image(''+i+j, '../assets/linux_puzzle/'+i+j+'.png');
       }
     }
-    //game.load.image('00', '../assets/linux_puzzle/00.png');
+    game.load.json('linux_puzzle_prop','../assets/linux_puzzle/properties.json');
 
   },
 
