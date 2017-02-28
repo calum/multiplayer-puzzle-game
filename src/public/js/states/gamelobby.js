@@ -1,3 +1,5 @@
+var users = ['John', 'Calum'];
+var usernames = {};
 
 var gamelobbyState = {
   create: function() {
@@ -14,6 +16,10 @@ var gamelobbyState = {
 
     var closelobbyLabel = game.add.text(80, game.world.height-160,
                     'Close Lobby (press "E")',
+                    {font: '25px Arial', fill: '#ffffff'});
+
+    var connectedUsers = game.add.text(game.world.width-320, 25,
+                    'Connected users:',
                     {font: '25px Arial', fill: '#ffffff'});
 
     var wkey = game.input.keyboard.addKey(Phaser.Keyboard.W);
@@ -35,6 +41,18 @@ var gamelobbyState = {
     qkey.onDown.addOnce(this.startGame, this);
     wkey.onDown.addOnce(this.selectpuzzle, this);
     ekey.onDown.addOnce(this.close, this);
+  },
+
+  update: function() {
+    // Keep updating the connected users list:
+    for (let i=0; i<users.length; i++) {
+      if (usernames[users[i]]) {
+        continue;
+      }
+      usernames[users[i]] = game.add.text(game.world.width-320, 30*(i+2),
+                      users[i],
+                      {font: '20px Arial', fill: '#ffffff'});
+    }
   },
 
   startGame: function() {
