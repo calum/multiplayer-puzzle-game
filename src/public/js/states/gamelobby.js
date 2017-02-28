@@ -2,8 +2,11 @@ var users = ['John', 'Calum'];
 var usernames = {};
 
 var gamelobbyState = {
+
   create: function() {
-    var nameLabel = game.add.text(80,80,'Lobby',
+
+    var lobbyID = localStorage.getItem('lobbyID');
+    var nameLabel = game.add.text(80,80,lobbyID,
                     {font: '50px Arial', fill: '#ffffff'});
 
     var startLabel = game.add.text(80, game.world.height-240,
@@ -21,6 +24,7 @@ var gamelobbyState = {
     var connectedUsers = game.add.text(game.world.width-320, 25,
                     'Connected users:',
                     {font: '25px Arial', fill: '#ffffff'});
+
 
     var wkey = game.input.keyboard.addKey(Phaser.Keyboard.W);
     var qkey = game.input.keyboard.addKey(Phaser.Keyboard.Q);
