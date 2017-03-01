@@ -6,6 +6,9 @@ var gamelobbyState = {
   create: function() {
 
     var lobbyID = localStorage.getItem('lobbyID');
+    var player = localStorage.getItem('username');
+    users.push(player);
+
     var nameLabel = game.add.text(80,80,lobbyID,
                     {font: '50px Arial', fill: '#ffffff'});
 
