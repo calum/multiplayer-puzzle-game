@@ -2,6 +2,7 @@
 // placement of the puzzle
 var puzzlePosition;
 var puzzlePieces = {};
+var boardLength;
 
 var gameboard = {
 
@@ -11,7 +12,7 @@ var gameboard = {
   * proportional to the shortest dimension
   **/
   draw: function(graphics) {
-    var boardLength = game.world.height;
+    boardLength = game.world.height;
     if (game.world.height > game.world.width) {
       boardLength = game.world.width;
     }
@@ -32,13 +33,16 @@ var gameboard = {
   * (19*scale)px height from the jigsaw edges.
   *
   **/
-  addPuzzle: function() {
-    var up;
-    var left;
-    var scale = 0.5;
+  addPuzzle: function(puzzle) {
 
     // Open the properties file:
-    var properties = game.cache.getJSON('linux_puzzle_prop');
+    var properties = game.cache.getJSON(puzzle+'_prop');
+    var puzzle_height = properties.overview.height;
+    var puzzle_width = properties.overview.width;
+    var puzzleNumXPieces = properties.overview.horizontalPieces;
+    var puzzleNumYPieces = properties.overview.verticalPieces;
+
+    var scale = boardLength/puzzle_width;
 
     var posX = game.world.width*((1-gameBoardSize)/2);
     var posY = game.world.height*((1-gameBoardSize - selectionAreaPercent)/2);
@@ -47,22 +51,17 @@ var gameboard = {
       var j=0;
       for (j=0; j<8; j++) {
 
-        up = properties[''+i+j].up;
-        left = properties[''+i+j].left;
-        puzzlePieces[''+i+j] = game.add.sprite(posX-(left*23*scale), posY-(up*19*scale), ''+i+j);
+        var x = posX + properties[''+i+j].x*puzzle_width*scale;
+        var y = posY + properties[''+i+j].y*puzzle_height*scale;
+
+        puzzlePieces[''+i+j] = game.add.sprite(x, y, puzzle+i+j);
         puzzlePieces[''+i+j].scale.x *= scale;
         puzzlePieces[''+i+j].scale.y *= scale;
 
         puzzlePieces[''+i+j].inputEnabled = true;
         puzzlePieces[''+i+j].input.enableDrag();
 
-        //posX += puzzlePieces[''+i+j].width;
-        posX += 110*scale;
-
       }
-      posX = game.world.width*((1-gameBoardSize)/2);
-      //posY += puzzlePieces[''+i+5].height;
-      posY += 90*scale;
     }
   }
 

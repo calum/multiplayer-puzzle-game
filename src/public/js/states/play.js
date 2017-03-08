@@ -38,7 +38,7 @@ var playState = {
     this.win = game.add.sprite(256,256,'win');
     game.physics.enable(this.win, Phaser.Physics.ARCADE);
 
-    gameboard.addPuzzle();
+    gameboard.addPuzzle('penguin_puzzle');
 
   },
 
