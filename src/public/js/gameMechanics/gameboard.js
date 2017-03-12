@@ -42,7 +42,7 @@ var gameboard = {
     var puzzleNumXPieces = properties.overview.horizontalPieces;
     var puzzleNumYPieces = properties.overview.verticalPieces;
 
-    var scale = boardLength/puzzle_width;
+    var scale = boardLength/puzzle_height;
 
     var posX = game.world.width*((1-gameBoardSize)/2);
     var posY = game.world.height*((1-gameBoardSize - selectionAreaPercent)/2);
@@ -51,8 +51,8 @@ var gameboard = {
       var j=0;
       for (j=0; j<8; j++) {
 
-        var x = posX + properties[''+i+j].x*puzzle_width*scale;
-        var y = posY + properties[''+i+j].y*puzzle_height*scale;
+        var x = posX + properties[''+i+j].topLeftCorner.x*puzzle_width*scale;
+        var y = posY + properties[''+i+j].topLeftCorner.y*puzzle_height*scale;
 
         puzzlePieces[''+i+j] = game.add.sprite(x, y, puzzle+i+j);
         puzzlePieces[''+i+j].scale.x *= scale;
@@ -60,9 +60,17 @@ var gameboard = {
 
         puzzlePieces[''+i+j].inputEnabled = true;
         puzzlePieces[''+i+j].input.enableDrag();
-
+        puzzlePieces[''+i+j].events.onDragStart.add(this.onDragStart, this);
+        puzzlePieces[''+i+j].events.onDragStop.add(this.onDragStop, this);
       }
     }
+  },
+
+  onDragStart: function(sprite, pointer) {
+    playState.spriteDrag(true);
+  },
+  onDragStop: function(sprite, pointer) {
+    playState.spriteDrag(false);
   }
 
 };

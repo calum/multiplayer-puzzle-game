@@ -3,6 +3,12 @@
 const selectionAreaPercent = 0.2;
 const gameBoardSize = 0.7;
 
+// boolean to help with screen drag
+var dragging = false;
+var touchX;
+var touchY;
+var spriteDrag = false;
+
 var playState = {
 
 
@@ -40,6 +46,12 @@ var playState = {
 
     gameboard.addPuzzle('penguin_puzzle');
 
+    // enable touch
+    game.input.mouse.capture = true;
+
+    // increase the size of the world to let players move around the puzzle
+    game.world.setBounds(0,0,2000,2000);
+
   },
 
   update: function() {
@@ -64,6 +76,45 @@ var playState = {
       this.player.body.velocity.y = 0;
     }
 
+    // drag the screen
+    this.screenDrag();
+  },
+
+  screenDrag: function() {
+    // drag the screen
+    if (game.input.activePointer.isDown){
+      // if a sprite is being dragged then we ignore this touch
+      if (spriteDrag) {
+        dragging = false;
+        return;
+      }
+
+      if (dragging) {
+        var dx = game.input.activePointer.position.x - touchX;
+        var dy = game.input.activePointer.position.y - touchY;
+        touchX = game.input.activePointer.position.x;
+        touchY = game.input.activePointer.position.y;
+      }
+      else {
+        dragging = true;
+        touchX = game.input.activePointer.position.x;
+        touchY = game.input.activePointer.position.y;
+        var dx = 0;
+        var dy = 0;
+      }
+      game.camera.x -= dx;
+      game.camera.y -= dy;
+    }
+
+    // Stop dragging screen
+    if (game.input.activePointer.isUp) {
+      dragging = false;
+    }
+  },
+
+  // Called when a puzzle piece is being dragged
+  spriteDrag: function(dragging) {
+    spriteDrag = dragging;
   },
 
   Win: function() {
