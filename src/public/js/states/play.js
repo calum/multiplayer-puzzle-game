@@ -9,6 +9,10 @@ var touchX;
 var touchY;
 var spriteDrag = false;
 
+// on screen information
+var timer;
+var startTime = Date.now()
+
 var playState = {
 
 
@@ -29,6 +33,11 @@ var playState = {
       game.world.width,
       game.world.height*(selectionAreaPercent)
     );
+
+    // place the timer at the top of the game screen
+    timer = game.add.text(80, 0,
+                    'Time: '+(Date.now()-startTime),
+                    {font: '25px Arial', fill: '#0x0000FF'});
 
     // Draw the game board with the graphics object
     gameboard.draw(graphics);
@@ -78,6 +87,10 @@ var playState = {
 
     // drag the screen
     this.screenDrag();
+
+    // update timer:
+    this.updateTimer();
+
   },
 
   screenDrag: function() {
@@ -110,6 +123,15 @@ var playState = {
     if (game.input.activePointer.isUp) {
       dragging = false;
     }
+  },
+
+  updateTimer: function() {
+    var timerX = game.camera.position.x+80;
+    var timerY = game.camera.position.y;
+    timer.destroy();
+    timer = game.add.text(timerX, timerY,
+                    'Time: '+(Date.now()-startTime),
+                    {font: '25px Arial', fill: '#0x0000FF'});
   },
 
   // Called when a puzzle piece is being dragged
