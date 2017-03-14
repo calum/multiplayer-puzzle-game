@@ -5,7 +5,7 @@ Any help would be appreciated. The issues are really vague at the time of writin
 When working on backend features, try to add tests to the `test/` directory. These are run with [mocha](https://mochajs.org/).
 
 # Multiplayer Puzzle Game
-A fast paced competitive puzzle solving game built on (Phaser.io)[http://phaser.io]. Inspiration taken from the single player game [jumbo jav ban haasteren](http://jumbo-jan-van-haasteren.fbrq.io/jumbo-jan-van-haasteren/index.html)
+A fast paced competitive puzzle solving game built on [Phaser.io](http://phaser.io). Inspiration taken from the single player game [jumbo jav ban haasteren](http://jumbo-jan-van-haasteren.fbrq.io/jumbo-jan-van-haasteren/index.html)
 
 ## Game States
 The Phaser game states are all defined inside `src/public/js/states/`. These are where the game home page and different options are created.
