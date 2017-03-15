@@ -7,19 +7,20 @@ script:
 after_success:
 - npm run report-coverage
 
+
 #deploy:
-#  provider: s3
-#  access_key_id:
+#  provider: elasticbeanstalk
+#  access_key_id: <access-key-id>
 #  secret_access_key:
-#  bucket: "calum-forster"
-#  provider: codedeploy
+#    secure: "Encypted <secret-access-key>="
+#  region: "us-east-1"
+#  app: "example-app-name"
+#  env: "example-app-environment"
+#
 #  access_key_id: AKIAJYIN4UJJLXOJXNZA
 #  secret_access_key:
 #    secure: "BwNItvTkuFwATx+d0sNRlKB6wwbDIw0CSNSUdTcZoDtWzIVJ09+O72Mz2kt7UFXuRqmAdnIuWD7ygl1Re2E70Tp3D73q/2erKA43D6EwQvC/s/YtUnGQgiuEE/8A4Mn5UZGwcQXlOX2VI4jPTNQy1ePHrt+VZm2iObp+fE3IbQNLDtxSNaNkyUEKDxNoEep2MHwk4PT2cS+/+LG67OdIglt7OGwj8I4bzGxzsuwDp2s8DdY+wtukUQXDaE/zre9/rcWxXPPWmRl7K1X37GnkT/O8V0vgH4LjTxrWcDhmLVhyG0L98liNlX83qO2OZWBB87um9fd0Tl13j5iTd9hvwQeFHL86K8B09Z84C9bnbNruHTu6zZjSKenVCsJTlG//1MyQtqtw9RFFXYy0R0IwuMlD6VIlzb5MPGMjrWcweIw9AAunKdXCPlVIvr6YL6yxaA3giIuyMAab/y0FKbLNsjIwKdIgdh2uj3wS6rtnN73wIsh/nT2RngvQBgJzrOKz4PJqHyvwC154zbagFvupsB7Y4rNRXDy6lPOLovTC2JCqvqG1NTm3467EeKisiD5IXatqLYC5k5HLuv4OR25YlLnH2UW81MxMPGihUTKi4FXouMVYDajv/irtFBpdW5dGmlatFDN+qTysvhCLjRd82BFohN9f0joP4RvG4ulvzgo="
-#  bucket: calum-forster
-#  key: latest/MyApp.zip
-#  application: Github-Calum-Forster
-#  deployment_group: Calum-Forster
+#
 #  region: us-west-2
 #  on:
 #    all_branches: true
