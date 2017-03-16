@@ -2,7 +2,13 @@
 // placement of the puzzle
 var puzzlePosition;
 var puzzlePieces = {};
+var puzzlePieceOrder;
 var boardLength;
+
+// Group to hold all the pices in the que
+var unsetPieces;
+var movedPieces;
+var setPieces;
 
 var gameboard = {
 
@@ -62,15 +68,62 @@ var gameboard = {
         puzzlePieces[''+i+j].input.enableDrag();
         puzzlePieces[''+i+j].events.onDragStart.add(this.onDragStart, this);
         puzzlePieces[''+i+j].events.onDragStop.add(this.onDragStop, this);
+
+        // Add their final position:
+        puzzlePieces[''+i+j].finalPosition = {x: x, y: y};
       }
     }
+
+    // shuffle the pieces
+    puzzlePieceOrder = utils.shuffle(Object.keys(puzzlePieces));
+    unsetPieces = game.add.group();
+    movedPieces = game.add.group();
+    setPieces = game.add.group();
+    // Place the pieces into the unset position
+    this.placePieces();
   },
 
   onDragStart: function(sprite, pointer) {
     playState.spriteDrag(true);
+
+    // Remove this piece from the unsetPieces group
+    if(unsetPieces.children.indexOf(sprite) > -1) {
+      unsetPieces.remove(sprite);
+      movedPieces.add(sprite);
+      playState.spriteDrag(false);
+    }
   },
   onDragStop: function(sprite, pointer) {
     playState.spriteDrag(false);
+  },
+
+  // Places all the pieces along the bottom row in a random order
+  placePieces: function() {
+    // holds the current position
+    var position = 0;
+
+    // Loop over each piece adding it along the bottom row
+    for (index in puzzlePieceOrder) {
+      // current piece:
+      var piece = puzzlePieceOrder[index];
+
+      // Previous piece:
+      var lastPiece = (index == 0) ? 0 : index-1;
+      lastPiece = puzzlePieceOrder[lastPiece];
+
+      // new position
+      position += puzzlePieces[lastPiece].width*(1.2);
+
+      // Add the pieces along the row
+      puzzlePieces[piece].position.x = position;
+      puzzlePieces[piece].position.y = game.camera.height - selectionArea.position.y - 0.5*(selectionArea.height + puzzlePieces[piece].height);
+      unsetPieces.add(puzzlePieces[piece]);
+    }
+  },
+
+  // move all unset pieces to the right by dx amount
+  moveUnsetPieces: function(dx) {
+    unsetPieces.position.x += dx;
   }
 
 };
