@@ -6,6 +6,8 @@ var path = require('path')
 
 var winston = require('winston')
 
+var port = process.env.PORT || 3000;
+
 
 /**
 * The server
@@ -22,6 +24,6 @@ app.get('/', (req, res) => {
   winston.info('Sending game to new client.')
 })
 
-app.listen(3000, () => {
-  winston.info('Server is listening on port 3000.')
+app.listen(port, () => {
+  winston.info('Server is listening on port '+port+'.')
 })

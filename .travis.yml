@@ -7,19 +7,14 @@ script:
 after_success:
 - npm run report-coverage
 
-#deploy:
-#  provider: s3
-#  access_key_id:
-#  secret_access_key:
-#  bucket: "calum-forster"
-#  provider: codedeploy
-#  access_key_id: AKIAJYIN4UJJLXOJXNZA
-#  secret_access_key:
-#    secure: "BwNItvTkuFwATx+d0sNRlKB6wwbDIw0CSNSUdTcZoDtWzIVJ09+O72Mz2kt7UFXuRqmAdnIuWD7ygl1Re2E70Tp3D73q/2erKA43D6EwQvC/s/YtUnGQgiuEE/8A4Mn5UZGwcQXlOX2VI4jPTNQy1ePHrt+VZm2iObp+fE3IbQNLDtxSNaNkyUEKDxNoEep2MHwk4PT2cS+/+LG67OdIglt7OGwj8I4bzGxzsuwDp2s8DdY+wtukUQXDaE/zre9/rcWxXPPWmRl7K1X37GnkT/O8V0vgH4LjTxrWcDhmLVhyG0L98liNlX83qO2OZWBB87um9fd0Tl13j5iTd9hvwQeFHL86K8B09Z84C9bnbNruHTu6zZjSKenVCsJTlG//1MyQtqtw9RFFXYy0R0IwuMlD6VIlzb5MPGMjrWcweIw9AAunKdXCPlVIvr6YL6yxaA3giIuyMAab/y0FKbLNsjIwKdIgdh2uj3wS6rtnN73wIsh/nT2RngvQBgJzrOKz4PJqHyvwC154zbagFvupsB7Y4rNRXDy6lPOLovTC2JCqvqG1NTm3467EeKisiD5IXatqLYC5k5HLuv4OR25YlLnH2UW81MxMPGihUTKi4FXouMVYDajv/irtFBpdW5dGmlatFDN+qTysvhCLjRd82BFohN9f0joP4RvG4ulvzgo="
-#  bucket: calum-forster
-#  key: latest/MyApp.zip
-#  application: Github-Calum-Forster
-#  deployment_group: Calum-Forster
-#  region: us-west-2
-#  on:
-#    all_branches: true
+
+deploy:
+  provider: elasticbeanstalk
+  access_key_id: AKIAJWPWC5DP7W37ZTUA
+  secret_access_key:
+    secure: "qDKuIQ3Us4R1dbcewVfpJhYJcw3DJIb+M4ESW9fnkT31QvvizajIUaork1KJXM8bCFVtWnVW/sY0M+65grX2wlZuIdcUcCbk4arI4A1T0nCZf5w2uzqWTO6ZURii+5AwdfHLYijb/zs4GVnc3e24S4O4sXCkX2NDop4KV7TdLsLiVRNn11PLvJURve+8QIwh2lttWD2TmUIy2WZ4KNgUdAnn34cqJnf59yu5Kq/TFzL1QyiaGNU4sawFhWnCoHLfb/62if0qxyFCjR0hRffeXjdCSNfYie18fhP8CaYlJ8La588JodyXSKEajJ9L+N6f7aYhqmBqVK2T61WuU2W3L5NOvG2ebZ3ZWZpJ7DLdLVzAWOsODHapdw94XaFkhVi0tGWzz3E5Mo3BODmJ7uebBFtSOFO1ZuFGr0JWmnPtXZ/Dyd7A5JGwnk8oydEsrvvlw3JAHLoF3onYl2X2n/Rbilj9VNklezDvO0LqXopES/LLwS9fo1+e4XhbTjBAbQobM5+Q4n12bPVlUgONcueZ7Qi7DJWyxxpH5WNpWSps+sL68UUpLEsFfBTF9NpsAwFEna4NBM5HJwD5dcgXg+gooUEyItpOWJvNJhG00QwxBsTVdqBGdNj23HNgJEsn9NnB0/5oaSOMXim6keSIYerqmGqtlf8SkQHN0jzihSw/mKA="
+  region: "us-west-2"
+  app: "puzzle"
+  env: "LowCost-env"
+  bucket_name: "elasticbeanstalk-us-west-2-040251125443"
+  bucket_path: "app/"
