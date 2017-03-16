@@ -16,3 +16,5 @@ deploy:
   region: "us-west-2"
   app: "puzzle"
   env: "LowCost-env"
+  bucket_name: "elasticbeanstalk-us-west-2-040251125443"
+  bucket_path: "app/"
