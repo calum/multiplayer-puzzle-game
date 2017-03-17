@@ -6,6 +6,8 @@ When working on backend features, try to add tests to the `test/` directory. The
 
 All pushes and merges to the master branch are deployed automatically by Tavis-ci onto the [amazon server](http://lowcost-env.arxiwpmmng.us-west-2.elasticbeanstalk.com/).
 
+All pull requests will be deployed onto an Heroku server to be tested (https://dashboard.heroku.com/apps/salty-fortress-42911). This deployment is manually done by a main contibutor clicking the deploy button on the heroku app page.
+
 # Multiplayer Puzzle Game
 A fast paced competitive puzzle solving game built on [Phaser.io](http://phaser.io). Inspiration taken from the single player game [jumbo jav ban haasteren](http://jumbo-jan-van-haasteren.fbrq.io/jumbo-jan-van-haasteren/index.html)
 
