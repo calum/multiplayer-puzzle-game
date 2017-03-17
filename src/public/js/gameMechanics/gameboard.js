@@ -11,6 +11,9 @@ var spriteunset;
 var movedPieces;
 var setPieces;
 
+// properties file:
+var properties;
+
 var gameboard = {
 
   /**
@@ -43,7 +46,7 @@ var gameboard = {
   addPuzzle: function(puzzle) {
 
     // Open the properties file:
-    var properties = game.cache.getJSON(puzzle+'_prop');
+    properties = game.cache.getJSON(puzzle+'_prop');
     var puzzle_height = properties.overview.height;
     var puzzle_width = properties.overview.width;
     var puzzleNumXPieces = properties.overview.horizontalPieces;
@@ -94,21 +97,29 @@ var gameboard = {
 
   onDragStart: function(sprite, pointer) {
     playState.spriteDrag(true);
-
-    // Remove this piece from the unsetPieces group
-    if(unsetPieces.children.indexOf(sprite) > -1) {
-      //sprite.position.x += unsetPieces.position.x;
-      //var y = sprite.position.y;
-    //  unsetPieces.remove(sprite);
-
-      //movedPieces.add(sprite);
-      //sprite.position.x = x+unsetPieces.position.x;
-      //sprite.position.y = y;
-
-    }
   },
+
   onDragStop: function(sprite, pointer) {
     playState.spriteDrag(false);
+
+    // Remove this piece from the selection area if it has been moved enough
+    if (sprite.position.y < game.camera.height*(1-selectionAreaPercent)) {
+      unsetPieces.remove(sprite);
+      movedPieces.add(sprite);
+    }
+
+    // Snap the piece into place when it is correctly placed:
+    if (Math.abs(sprite.position.x - sprite.finalPosition.x) < 2.5 && Math.abs(sprite.position.y - sprite.finalPosition.y) < 2.5) {
+      sprite.position = sprite.finalPosition;
+
+      movedPieces.remove(sprite);
+      setPieces.add(sprite);
+      sprite.input.draggable = false;
+
+      if (setPieces.children.length == properties.overview.horizontalPieces*properties.overview.verticalPieces) {
+        play.Win();
+      }
+    }
   },
 
   // Places all the pieces along the bottom row in a random order
