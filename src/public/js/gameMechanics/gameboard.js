@@ -130,14 +130,17 @@ var gameboard = {
 
       // Add the pieces along the row
       puzzlePieces[piece].position.x = position;
-      puzzlePieces[piece].position.y = game.camera.height - selectionArea.position.y - 0.5*(selectionArea.height + puzzlePieces[piece].height);
+      puzzlePieces[piece].position.y = game.camera.height - 0.5*(selectionArea.height + puzzlePieces[piece].height);
       unsetPieces.add(puzzlePieces[piece]);
     }
   },
 
   // move all unset pieces to the right by dx amount
-  moveUnsetPieces: function(dx) {
-    unsetPieces.position.x += dx;
+  moveUnsetPieces: function(dx, dy) {
+    unsetPieces.forEach( function(sprite) {
+      sprite.position.x += dx;
+      sprite.position.y = dy || game.camera.height + game.camera.position.y - 0.5*(selectionArea.height + sprite.height);
+    });
   }
 
 };

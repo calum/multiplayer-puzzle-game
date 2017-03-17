@@ -38,8 +38,6 @@ var playState = {
     );
     selectionArea.endFill();
     selectionArea.fixedToCamera = true;
-    selectionArea.inputEnabled = true;
-    selectionArea.events.onInputDown.add(this.selectionAreaClicked, this);
 
     // place the timer at the top of the game screen
     timer = game.add.text(80, 0,
@@ -117,7 +115,7 @@ var playState = {
   // Check for the user pulling the selection area across
   updateSelectionArea: function() {
     // check that the mouse is over the selection area
-    if (selectionArea.input.pointerOver() || spriteunset) {
+    if (game.input.activePointer.position.y > game.camera.height*(1-selectionAreaPercent) && game.input.activePointer.isDown) {
 
       // Then check if we should drag the pieces:
       if (selectionAreaDragging) {
@@ -127,19 +125,18 @@ var playState = {
         // Drag the pieces across
         gameboard.moveUnsetPieces(dx);
       }
+
+      else {
+        touchX = game.input.activePointer.position.x;
+        selectionAreaDragging = true;
+      }
     }
 
     // Stop dragging the pieces when the mouse is up
-    if (game.input.activePointer.isUp) {
+    else {
       selectionAreaDragging = false;
     }
 
-  },
-
-  selectionAreaClicked: function() {
-    selectionAreaDragging = true;
-    touchX = game.input.activePointer.position.x;
-    var dx = 0;
   },
 
   screenDrag: function() {
@@ -153,7 +150,7 @@ var playState = {
 
       // if the player is dragging the selection area then
       // do not also drag the camera
-      if (selectionArea.input.pointerOver()) {
+      if (game.input.activePointer.position.y > game.camera.height*(1-selectionAreaPercent)) {
         return;
       }
 
@@ -172,6 +169,7 @@ var playState = {
       }
       game.camera.x -= dx;
       game.camera.y -= dy;
+      gameboard.moveUnsetPieces(-dx);
     }
 
     // Stop dragging screen
