@@ -117,7 +117,7 @@ var playState = {
   // Check for the user pulling the selection area across
   updateSelectionArea: function() {
     // check that the mouse is over the selection area
-    if (selectionArea.input.pointerOver()) {
+    if (selectionArea.input.pointerOver() || spriteunset) {
 
       // Then check if we should drag the pieces:
       if (selectionAreaDragging) {

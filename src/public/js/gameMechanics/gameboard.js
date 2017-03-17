@@ -7,6 +7,7 @@ var boardLength;
 
 // Group to hold all the pices in the que
 var unsetPieces;
+var spriteunset;
 var movedPieces;
 var setPieces;
 
@@ -65,7 +66,10 @@ var gameboard = {
         puzzlePieces[''+i+j].scale.y *= scale;
 
         puzzlePieces[''+i+j].inputEnabled = true;
-        puzzlePieces[''+i+j].input.enableDrag();
+
+        // Enable drag and 'bring to top'
+        puzzlePieces[''+i+j].input.enableDrag(false, true);
+        // Assign functions to be called when drag starts/stops
         puzzlePieces[''+i+j].events.onDragStart.add(this.onDragStart, this);
         puzzlePieces[''+i+j].events.onDragStop.add(this.onDragStop, this);
 
@@ -76,9 +80,14 @@ var gameboard = {
 
     // shuffle the pieces
     puzzlePieceOrder = utils.shuffle(Object.keys(puzzlePieces));
+
+    // Add the unset pieces to the unset group
     unsetPieces = game.add.group();
+    // Moved pieces will go into the moved group
     movedPieces = game.add.group();
+    // Pieces which have been correctly set will go into this group
     setPieces = game.add.group();
+
     // Place the pieces into the unset position
     this.placePieces();
   },
@@ -88,9 +97,14 @@ var gameboard = {
 
     // Remove this piece from the unsetPieces group
     if(unsetPieces.children.indexOf(sprite) > -1) {
-      unsetPieces.remove(sprite);
-      movedPieces.add(sprite);
-      playState.spriteDrag(false);
+      //sprite.position.x += unsetPieces.position.x;
+      //var y = sprite.position.y;
+    //  unsetPieces.remove(sprite);
+
+      //movedPieces.add(sprite);
+      //sprite.position.x = x+unsetPieces.position.x;
+      //sprite.position.y = y;
+
     }
   },
   onDragStop: function(sprite, pointer) {
