@@ -75,9 +75,32 @@ var gameboard = {
         // Assign functions to be called when drag starts/stops
         puzzlePieces[''+i+j].events.onDragStart.add(this.onDragStart, this);
         puzzlePieces[''+i+j].events.onDragStop.add(this.onDragStop, this);
+        puzzlePieces[''+i+j].events.onDragUpdate.add(this.dragUpdate);
 
         // Add their final position:
         puzzlePieces[''+i+j].finalPosition = {x: x, y: y};
+
+        // Create a graph for each piece:
+        utils.createGraph([ puzzlePieces[''+i+j] ],[]);
+      }
+    }
+
+    // Add all the sprites neighbours as a property
+    for (var i=0; i<8; i++){
+      var j=0;
+      for (j=0; j<8; j++) {
+
+        // Add their neighbours:
+        puzzlePieces[''+i+j].neighbours = [
+          puzzlePieces[''+(i-1)+j],
+          puzzlePieces[''+(i+1)+j],
+          puzzlePieces[''+i+(j-1)],
+          puzzlePieces[''+i+(j+1)]
+        ];
+
+        // initialise the locked array which holds the pieces locked together
+        puzzlePieces[''+i+j].locked = [];
+
       }
     }
 
@@ -99,6 +122,33 @@ var gameboard = {
     playState.spriteDrag(true);
   },
 
+  dragUpdate: function(sprite, pointer, dragX, dragY, snapPoint) {
+
+    // Find the graph with this sprite and update all other sprites:
+    var graph = utils.findGraph(sprite);
+
+    for (let i=0; i<graph.V.length; i++) {
+      graph.V[i].position.x = sprite.position.x +   graph.V[i].finalPosition.x - sprite.finalPosition.x;
+      graph.V[i].position.y = sprite.position.y +   graph.V[i].finalPosition.y - sprite.finalPosition.y;
+    }
+
+    /*
+    sprite.moved = true;
+
+    for (let i=0; i<sprite.locked.length; i++) {
+      // Check if this sprite has already been moved
+      if (sprite.locked[i].moved == false) {
+        // update position
+        sprite.locked[i].position.x = sprite.position.x + sprite.locked[i].finalPosition.x - sprite.finalPosition.x;
+        sprite.locked[i].position.y = sprite.position.y + sprite.locked[i].finalPosition.y - sprite.finalPosition.y;
+        // update locked pieces
+        gameboard.dragUpdate(sprite.locked[i], pointer, dragX, dragY, snapPoint);
+      }
+    }
+    sprite.moved = false;
+    */
+  },
+
   onDragStop: function(sprite, pointer) {
     playState.spriteDrag(false);
 
@@ -108,16 +158,54 @@ var gameboard = {
       movedPieces.add(sprite);
     }
 
-    // Snap the piece into place when it is correctly placed:
-    if (Math.abs(sprite.position.x - sprite.finalPosition.x) < 2.5 && Math.abs(sprite.position.y - sprite.finalPosition.y) < 2.5) {
-      sprite.position = sprite.finalPosition;
+    // Snap the piece and it's neighbours into place when it is correctly placed:
+    if (Math.abs(sprite.position.x - sprite.finalPosition.x) < 5 && Math.abs(sprite.position.y - sprite.finalPosition.y) < 5) {
+      var graph = utils.getGraph(sprite);
 
-      movedPieces.remove(sprite);
-      setPieces.add(sprite);
-      sprite.input.draggable = false;
+      for (let i=0; i<graph.V.length; i++) {
+        // set the final position
+        graph.V[i].position = graph.V[i].finalPosition;
+        // remove from one group and put into the set pieces group
+        movedPieces.remove(sprite);
+        setPieces.add(sprite);
+        sprite.input.draggable = false;
 
-      if (setPieces.children.length == properties.overview.horizontalPieces*properties.overview.verticalPieces) {
-        play.Win();
+        if (setPieces.children.length == properties.overview.horizontalPieces*properties.overview.verticalPieces) {
+          play.Win();
+        }
+      }
+
+    }
+
+    // Check if the piece can be locked into a neighbour piece:
+    //  for piece [i,j] it has neighbours  [i-1, j], [i+1, j]
+    //                                    [i, j-1], [i, j+1]
+    for (let i=0; i < sprite.neighbours.length; i++) {
+      if (sprite.neighbours[i]) {
+        var neighbour = sprite.neighbours[i];
+
+        var distanceX = sprite.finalPosition.x - neighbour.finalPosition.x;
+        var distanceY = sprite.finalPosition.y - neighbour.finalPosition.y;
+
+        if (Math.abs(sprite.position.x - neighbour.position.x - distanceX) < 5 && Math.abs(sprite.position.y - neighbour.position.y - distanceY) < 5) {
+          // lock these pieces together!
+          sprite.position.x = neighbour.position.x + sprite.finalPosition.x - neighbour.finalPosition.x;
+          sprite.position.y = neighbour.position.y + sprite.finalPosition.y - neighbour.finalPosition.y;
+
+          // Join these Graphs together by the edge connecting them
+          utils.joinGraphs(utils.findGraph(sprite), utils.findGraph(neighbour), [sprite,neighbour]);
+
+          // remove this neighbour from the sprite
+          sprite.neighbours.splice(i,1);
+
+          // remove this sprite from the neighbours of the neighbour
+          var index = neighbour.neighbours.indexOf(sprite);
+          neighbour.neighbours.splice(index,1);
+
+          // break out the loop
+          break;
+        }
+
       }
     }
   },
@@ -152,6 +240,8 @@ var gameboard = {
       sprite.position.x += dx;
       sprite.position.y = dy || game.camera.height + game.camera.position.y - 0.5*(selectionArea.height + sprite.height);
     });
-  }
+  },
+
+  joinedSprites: {},
 
 };
