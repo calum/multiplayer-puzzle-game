@@ -11,6 +11,10 @@ var spriteunset;
 var movedPieces;
 var setPieces;
 
+// radius of pixels when placed within the piece
+// will snap into the correct position
+var snapradius = 7;
+
 // properties file:
 var properties;
 
@@ -159,7 +163,7 @@ var gameboard = {
     }
 
     // Snap the piece and it's neighbours into place when it is correctly placed:
-    if (Math.abs(sprite.position.x - sprite.finalPosition.x) < 5 && Math.abs(sprite.position.y - sprite.finalPosition.y) < 5) {
+    if (Math.abs(sprite.position.x - sprite.finalPosition.x) < snapradius && Math.abs(sprite.position.y - sprite.finalPosition.y) < snapradius) {
       var graph = utils.getGraph(sprite);
 
       for (let i=0; i<graph.V.length; i++) {
@@ -187,7 +191,7 @@ var gameboard = {
         var distanceX = sprite.finalPosition.x - neighbour.finalPosition.x;
         var distanceY = sprite.finalPosition.y - neighbour.finalPosition.y;
 
-        if (Math.abs(sprite.position.x - neighbour.position.x - distanceX) < 5 && Math.abs(sprite.position.y - neighbour.position.y - distanceY) < 5) {
+        if (Math.abs(sprite.position.x - neighbour.position.x - distanceX) < snapradius && Math.abs(sprite.position.y - neighbour.position.y - distanceY) < snapradius) {
           // lock these pieces together!
           sprite.position.x = neighbour.position.x + sprite.finalPosition.x - neighbour.finalPosition.x;
           sprite.position.y = neighbour.position.y + sprite.finalPosition.y - neighbour.finalPosition.y;
