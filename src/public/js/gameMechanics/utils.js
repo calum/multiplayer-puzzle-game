@@ -55,7 +55,7 @@ utils = {
     // First check that these graphs aren't already connected
     // via another edge:
     if (this.graphs.indexOf(graph1) == this.graphs.indexOf(graph2)) {
-      console.log('same graphs');
+      // Same graphs
       return;
     }
 
@@ -75,9 +75,6 @@ utils = {
     graph = this.graphs.filter(x => {
       return (x.V.indexOf(vertex) > -1)
     });
-    if (!graph[0]) {
-      console.log(graph);
-    }
     return graph[0];
   },
 };

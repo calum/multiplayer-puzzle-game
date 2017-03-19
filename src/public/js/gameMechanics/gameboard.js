@@ -132,6 +132,10 @@ var gameboard = {
     // that are connected:
     var graph = utils.findGraph(sprite);
 
+    if (!graph) {
+      return;
+    }
+
     for (let i=0; i<graph.V.length; i++) {
       graph.V[i].position.x = sprite.position.x +   graph.V[i].finalPosition.x - sprite.finalPosition.x;
       graph.V[i].position.y = sprite.position.y +   graph.V[i].finalPosition.y - sprite.finalPosition.y;
@@ -148,17 +152,22 @@ var gameboard = {
       movedPieces.add(sprite);
     }
 
+    // Get the graph for this piece:
+    var graph = utils.findGraph(sprite);
+    if (!graph) {
+      return;
+    }
+
     // Snap the piece and it's neighbours into place when it is correctly placed:
     if (Math.abs(sprite.position.x - sprite.finalPosition.x) < snapradius && Math.abs(sprite.position.y - sprite.finalPosition.y) < snapradius) {
-      var graph = utils.getGraph(sprite);
-
+      // For each piece in the graph, set to the final position:
       for (let i=0; i<graph.V.length; i++) {
         // set the final position
         graph.V[i].position = graph.V[i].finalPosition;
         // remove from one group and put into the set pieces group
-        movedPieces.remove(sprite);
-        setPieces.add(sprite);
-        sprite.input.draggable = false;
+        movedPieces.remove(graph.V[i]);
+        setPieces.add(graph.V[i]);
+        graph.V[i].input.draggable = false;
 
         if (setPieces.children.length == properties.overview.horizontalPieces*properties.overview.verticalPieces) {
           play.Win();
@@ -167,36 +176,62 @@ var gameboard = {
 
     }
 
-    // Check if the piece can be locked into a neighbour piece:
+    // Check if any piece in the graph can be locked into a neighbour piece:
     //  for piece [i,j] it has neighbours  [i-1, j], [i+1, j]
     //                                    [i, j-1], [i, j+1]
-    for (let i=0; i < sprite.neighbours.length; i++) {
-      if (sprite.neighbours[i]) {
-        var neighbour = sprite.neighbours[i];
+    var joins = []; // initialise the join array
+    for (let j=0; j<graph.V.length; j++) {
+      for (let i=0; i < graph.V[j].neighbours.length; i++) {
+        if (graph.V[j].neighbours[i]) {
+          var neighbour = graph.V[j].neighbours[i];
 
-        var distanceX = sprite.finalPosition.x - neighbour.finalPosition.x;
-        var distanceY = sprite.finalPosition.y - neighbour.finalPosition.y;
+          // Check that this neighbour isn't already connected to this graph:
+          if (graph.V.indexOf(neighbour) > -1) {
+            // remove this neighbour from the sprite
+            graph.V[j].neighbours.splice(i,1);
 
-        if (Math.abs(sprite.position.x - neighbour.position.x - distanceX) < snapradius && Math.abs(sprite.position.y - neighbour.position.y - distanceY) < snapradius) {
-          // lock these pieces together!
-          sprite.position.x = neighbour.position.x + sprite.finalPosition.x - neighbour.finalPosition.x;
-          sprite.position.y = neighbour.position.y + sprite.finalPosition.y - neighbour.finalPosition.y;
+            // remove this sprite from the neighbours of the neighbour
+            var index = neighbour.neighbours.indexOf(graph.V[j]);
+            neighbour.neighbours.splice(index,1);
 
-          // Join these Graphs together by the edge connecting them
-          utils.joinGraphs(utils.findGraph(sprite), utils.findGraph(neighbour), [sprite,neighbour]);
+            // exit this loop
+            continue;
+          }
 
-          // remove this neighbour from the sprite
-          sprite.neighbours.splice(i,1);
+          var distanceX = graph.V[j].finalPosition.x - neighbour.finalPosition.x;
+          var distanceY = graph.V[j].finalPosition.y - neighbour.finalPosition.y;
 
-          // remove this sprite from the neighbours of the neighbour
-          var index = neighbour.neighbours.indexOf(sprite);
-          neighbour.neighbours.splice(index,1);
+          if (Math.abs(graph.V[j].position.x - neighbour.position.x - distanceX) < snapradius && Math.abs(graph.V[j].position.y - neighbour.position.y - distanceY) < snapradius) {
+            // lock these pieces together!
+            graph.V[j].position.x = neighbour.position.x + graph.V[j].finalPosition.x - neighbour.finalPosition.x;
+            graph.V[j].position.y = neighbour.position.y + graph.V[j].finalPosition.y - neighbour.finalPosition.y;
 
-          // break out the loop
-          break;
+            // update the positions of all connected pieces:
+            this.dragUpdate(graph.V[j],null, graph.V[j].position.x, graph.V[j].position.y, null);
+
+            // Join these Graphs together by the edge connecting them
+            joins.push({piece1: graph.V[i], piece2: neighbour, edge: [graph.V[j],neighbour] });
+
+            // remove this neighbour from the sprite
+            graph.V[j].neighbours.splice(i,1);
+
+            // remove this sprite from the neighbours of the neighbour
+            var index = neighbour.neighbours.indexOf(graph.V[j]);
+            neighbour.neighbours.splice(index,1);
+
+            // break out the loop
+            continue;
+          }
+
         }
-
       }
+    }
+
+    // Now join together all the graphs of the newly connected pieces:
+    for (let i=0; i<joins.length; i++) {
+      // Join these Graphs together by the edge connecting them
+      // origonal graphs are removed after each join so we must find the new graph each time
+      utils.joinGraphs(utils.findGraph(joins[i].piece1), utils.findGraph(joins[i].piece2), joins[i].edge);
     }
   },
 
