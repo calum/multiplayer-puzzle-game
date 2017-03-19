@@ -128,7 +128,8 @@ var gameboard = {
 
   dragUpdate: function(sprite, pointer, dragX, dragY, snapPoint) {
 
-    // Find the graph with this sprite and update all other sprites:
+    // Find the graph with this sprite and update all the other sprites
+    // that are connected:
     var graph = utils.findGraph(sprite);
 
     for (let i=0; i<graph.V.length; i++) {
@@ -136,28 +137,13 @@ var gameboard = {
       graph.V[i].position.y = sprite.position.y +   graph.V[i].finalPosition.y - sprite.finalPosition.y;
     }
 
-    /*
-    sprite.moved = true;
-
-    for (let i=0; i<sprite.locked.length; i++) {
-      // Check if this sprite has already been moved
-      if (sprite.locked[i].moved == false) {
-        // update position
-        sprite.locked[i].position.x = sprite.position.x + sprite.locked[i].finalPosition.x - sprite.finalPosition.x;
-        sprite.locked[i].position.y = sprite.position.y + sprite.locked[i].finalPosition.y - sprite.finalPosition.y;
-        // update locked pieces
-        gameboard.dragUpdate(sprite.locked[i], pointer, dragX, dragY, snapPoint);
-      }
-    }
-    sprite.moved = false;
-    */
   },
 
   onDragStop: function(sprite, pointer) {
     playState.spriteDrag(false);
 
     // Remove this piece from the selection area if it has been moved enough
-    if (sprite.position.y < game.camera.height*(1-selectionAreaPercent)) {
+    if (sprite.position.y < game.camera.position.y + game.camera.height*(1-selectionAreaPercent)) {
       unsetPieces.remove(sprite);
       movedPieces.add(sprite);
     }
