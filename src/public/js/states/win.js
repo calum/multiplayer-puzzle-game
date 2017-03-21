@@ -4,18 +4,15 @@ var winState = {
   create: function() {
 
     var winLabel = game.add.text(80,80,'You Win!',
-                    {font: '50px Arial', fill: '#00FF00'});
+                    {font: '50px Arial', fill: '#ffffff'});
 
-    var startLabel = game.add.text(80, game.world.height-80,
-                    'press the "w" key to restart',
+    var startLabel = game.add.text(80, game.world.height-160,
+                    'Restart',
                     {font: '25px Arial', fill: '#ffffff'});
 
-    var wkey = game.input.keyboard.addKey(Phaser.Keyboard.W);
-
-    // When "w" is pressed, call the start function
-    wkey.onDown.addOnce(this.restart, this);
-
     // Add clickable links:
+    winLabel.inputEnabled = true;
+    winLabel.events.onInputDown.add(this.restart, this);
     startLabel.inputEnabled = true;
     startLabel.events.onInputDown.add(this.restart, this);
   },

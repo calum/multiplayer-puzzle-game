@@ -12,7 +12,13 @@ function start(server) {
   io.on('connection', (socket) => {
     // send this user the list of puzzles:
     socket.emit('puzzles', JSON.stringify(puzzleList))
+
+    socket.on('puzzles', (msg) => {
+      socket.emit('puzzles', JSON.stringify(puzzleList))
+    })
   })
+
+
 }
 
 module.exports.start = start

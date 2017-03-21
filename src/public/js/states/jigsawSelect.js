@@ -30,14 +30,14 @@ var jigsawselect = {
         var jigsaw = this.jigsaws[i+j];
 
         var posX = (1+j)*((game.world.width*0.8)/(this.jigsaws.length+1));
-        var posY = (1+i)*((game.world.height*0.8)/(this.jigsaws.length+1));
+        var posY = (1+i)*((game.world.width*0.8)/(this.jigsaws.length+1));
 
         // Add to the map
         this.jigsawImages[jigsaw] = game.add.sprite(posX, posY, jigsaw);
 
         // scale down
         this.jigsawImages[jigsaw].scale.x *= ((game.world.width*0.8)/(this.jigsaws.length+1))/this.jigsawImages[jigsaw].width;
-        this.jigsawImages[jigsaw].scale.y *= ((game.world.height*0.8)/(this.jigsaws.length+1))/this.jigsawImages[jigsaw].height;
+        this.jigsawImages[jigsaw].scale.y *= ((game.world.width*0.8)/(this.jigsaws.length+1))/this.jigsawImages[jigsaw].height;
 
         // Add the name:
         this.jigsawImages[jigsaw].name = jigsaw;

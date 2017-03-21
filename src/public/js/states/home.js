@@ -10,30 +10,20 @@ var homeState = {
 
   create: function() {
 
-    var nameLabel = game.add.text(80,80,'Home Screen',
+    var nameLabel = game.add.text(80,80,'Home',
                     {font: '50px Arial', fill: '#ffffff'});
 
     var singleplayerLabel = game.add.text(80, game.world.height-240,
-                    'Single Player (press "Q")',
+                    'Single Player',
                     {font: '25px Arial', fill: '#ffffff'});
 
     var optionsLabel = game.add.text(80, game.world.height-80,
-                    'Options (press "E")',
+                    'Options',
                     {font: '25px Arial', fill: '#ffffff'});
 
     var multiplayerLabel = game.add.text(80, game.world.height-160,
-                    'Multiplayer (press "W")',
+                    'Multiplayer',
                     {font: '25px Arial', fill: '#ffffff'});
-
-    var wkey = game.input.keyboard.addKey(Phaser.Keyboard.W);
-    var qkey = game.input.keyboard.addKey(Phaser.Keyboard.Q);
-    var ekey = game.input.keyboard.addKey(Phaser.Keyboard.E);
-
-
-    // When "w" is pressed, call the start function
-    qkey.onDown.addOnce(this.singleplayer, this);
-    wkey.onDown.addOnce(this.multiplayer, this);
-    ekey.onDown.addOnce(this.options, this);
 
     // Add clickable links:
     singleplayerLabel.inputEnabled = true;
@@ -45,6 +35,9 @@ var homeState = {
 
     // add menu sounds
     sounds.clickSounds.push(game.add.audio('click1'));
+
+    // Ask the server for the puzzles:
+    socket.emit('puzzles', 'Gimmie puzzle list');
   },
 
 

@@ -1,6 +1,6 @@
 
 /**
-* Create a game 640 pixels by 480 pixels
+* Create a game filling the whole screen
 **/
 var game = new Phaser.Game("100%", "100%", Phaser.AUTO, 'gameDiv');
 // Should also be a function for onResize
