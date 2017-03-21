@@ -1,7 +1,7 @@
 {
-  "name": "country-browser-game",
+  "name": "multiplayer-puzzle-game",
   "version": "1.0.0",
-  "description": "Match the country to the name",
+  "description": "Fast paced mutliplayer jigsaws",
   "main": "./src/server.js",
   "scripts": {
     "start": "node ./src/server.js",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CalumForsterDev/country-browser-game.git"
+    "url": "git+https://github.com/CalumForsterDev/multiplayer-puzzle-game.git"
   },
   "author": "Calum Forster",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/CalumForsterDev/country-browser-game/issues"
+    "url": "https://github.com/CalumForsterDev/multiplayer-puzzle-game/issues"
   },
-  "homepage": "https://github.com/CalumForsterDev/country-browser-game#readme",
+  "homepage": "https://github.com/CalumForsterDev/multiplayer-puzzle-game#readme",
   "dependencies": {
     "express": "^4.14.1",
     "jigsaw-builder": "^1.1.1",
