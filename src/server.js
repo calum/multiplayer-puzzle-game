@@ -2,11 +2,20 @@ var express = require('express')
 
 var app = express()
 
+var http = require('http').Server(app)
+
 var path = require('path')
+
+var fs = require('fs')
 
 var winston = require('winston')
 
 var port = process.env.PORT || 3000;
+
+var networking = require('./networking.js')
+
+// start the socket server
+networking.start(http)
 
 
 /**
@@ -24,6 +33,19 @@ app.get('/', (req, res) => {
   winston.info('Sending game to new client.')
 })
 
-app.listen(port, () => {
+// respond to requests about the puzzles:
+app.get('/puzzles', (req, res) => {
+  fs.readdir(path.join(__dirname+'/public/assets/'), (err, files) => {
+    if (err) {
+      return res.end(err.message)
+    }
+    files.forEach(file => {
+      console.log(file);
+    })
+    res.end('');
+  })
+})
+
+http.listen(port, () => {
   winston.info('Server is listening on port '+port+'.')
 })

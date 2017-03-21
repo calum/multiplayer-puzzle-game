@@ -14,6 +14,7 @@ game.state.add('singleplayer', singleplayerState);
 game.state.add('multiplayer', multiplayerState);
 game.state.add('gamelobby', gamelobbyState);
 game.state.add('play', playState);
+game.state.add('jigsawselect',jigsawselect);
 game.state.add('win', winState);
 
 // After all the states are added, start the game

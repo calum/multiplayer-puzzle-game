@@ -53,7 +53,7 @@ var singleplayerState = {
   },
 
   pickpuzzle: function() {
-    game.state.start('play');
+    game.state.start('jigsawselect');
   },
 
   home: function() {

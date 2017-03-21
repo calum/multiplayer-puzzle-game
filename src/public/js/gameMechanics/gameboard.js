@@ -40,23 +40,24 @@ var gameboard = {
   },
 
   /**
-  * Add the linux puzzle
+  * Add the puzzle
   * to the game board.
   *
-  * Some pieces have an extra (23*scale)px width and
-  * (19*scale)px height from the jigsaw edges.
-  *
   **/
-  addPuzzle: function(puzzle) {
+  addPuzzle: function(selectedJigsaw) {
+
+    if (!selectedJigsaw) {
+      var selectedJigsaw = 'penguin';
+    }
 
     // Open the properties file:
-    properties = game.cache.getJSON(puzzle+'_prop');
+    properties = game.cache.getJSON(selectedJigsaw+'_prop');
     var puzzle_height = properties.overview.height;
     var puzzle_width = properties.overview.width;
     var puzzleNumXPieces = properties.overview.horizontalPieces;
     var puzzleNumYPieces = properties.overview.verticalPieces;
 
-    var scale = boardLength/puzzle_height;
+    var scale = boardLength*(gameBoardSize)/puzzle_height;
 
     var posX = game.world.width*((1-gameBoardSize)/2);
     var posY = game.world.height*((1-gameBoardSize - selectionAreaPercent)/2);
@@ -68,7 +69,7 @@ var gameboard = {
         var x = posX + properties[''+i+j].topLeftCorner.x*puzzle_width*scale;
         var y = posY + properties[''+i+j].topLeftCorner.y*puzzle_height*scale;
 
-        puzzlePieces[''+i+j] = game.add.sprite(x, y, puzzle+i+j);
+        puzzlePieces[''+i+j] = game.add.sprite(x, y, selectedJigsaw+'_puzzle'+i+j);
         puzzlePieces[''+i+j].scale.x *= scale;
         puzzlePieces[''+i+j].scale.y *= scale;
 
@@ -83,6 +84,9 @@ var gameboard = {
 
         // Add their final position:
         puzzlePieces[''+i+j].finalPosition = {x: x, y: y};
+
+        // Add the name of this piece:
+        puzzlePieces[''+i+j].name = ''+i+j;
 
         // Create a graph for each piece:
         utils.createGraph([ puzzlePieces[''+i+j] ],[]);
@@ -147,17 +151,22 @@ var gameboard = {
     playState.spriteDrag(false);
 
     // Remove this piece from the selection area if it has been moved enough
-    if (sprite.position.y < game.camera.position.y + game.camera.height*(1-selectionAreaPercent)) {
+    if ( unsetPieces.children.indexOf(sprite) > -1 && sprite.position.y < game.camera.position.y + game.camera.height*(1-selectionAreaPercent)) {
       unsetPieces.remove(sprite);
       movedPieces.add(sprite);
+
+      // compact the selection area to fill the missing space from the sprite being removed
+      var indexOfMovedPiece = puzzlePieceOrder.indexOf(sprite.name);
+      unsetPieces.forEach(function(piece) {
+        var indexOfPiece = puzzlePieceOrder.indexOf(piece.name);
+        // If this is to the left, move to the right to fill the new gap
+        // If this is to the right, move to the left...
+        piece.position.x += 0.6*Math.sign(indexOfMovedPiece-indexOfPiece)*sprite.width;
+      });
     }
 
     // Get the graph for this piece:
     var graph = utils.findGraph(sprite);
-    if (!graph) {
-      console.log('no graph');
-      return;
-    }
 
     // Snap the piece and it's neighbours into place when it is correctly placed:
     if (Math.abs(sprite.position.x - sprite.finalPosition.x) < snapradius && Math.abs(sprite.position.y - sprite.finalPosition.y) < snapradius) {
