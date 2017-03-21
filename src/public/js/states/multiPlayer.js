@@ -37,18 +37,21 @@ var multiplayerState = {
   },
 
   joinGame: function() {
+    sounds.playSound(sounds.clickSounds);
     var gameName = prompt("Please enter a game ID:", "id");
     localStorage.setItem("gameID", gameName);
     game.state.start('play');
   },
 
   createGame: function() {
+    sounds.playSound(sounds.clickSounds);
     var lobbyID = prompt("Please enter a name for your lobby:", "id");
     localStorage.setItem("lobbyID", lobbyID);
     game.state.start('gamelobby');
   },
 
   home: function() {
+    sounds.playSound(sounds.clickSounds);
     game.state.start('home');
   }
 };

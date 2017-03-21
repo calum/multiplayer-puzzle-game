@@ -21,6 +21,7 @@ var optionsState = {
   },
 
   home() {
+    sounds.playSound(sounds.clickSounds);
     // call the play state
     game.state.start('home');
   },

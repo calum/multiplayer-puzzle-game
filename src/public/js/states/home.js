@@ -42,20 +42,26 @@ var homeState = {
     optionsLabel.events.onInputDown.add(this.options, this);
     multiplayerLabel.inputEnabled = true;
     multiplayerLabel.events.onInputDown.add(this.multiplayer, this);
+
+    // add menu sounds
+    sounds.clickSounds.push(game.add.audio('click1'));
   },
 
 
   singleplayer: function() {
+    sounds.playSound(sounds.clickSounds);
     game.state.start('singleplayer');
   },
 
   multiplayer() {
     // call the play state
+    sounds.playSound(sounds.clickSounds);
     game.state.start('multiplayer');
   },
 
   options() {
     // call the play state
+    sounds.playSound(sounds.clickSounds);
     game.state.start('options');
   },
 };

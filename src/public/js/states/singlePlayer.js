@@ -45,18 +45,22 @@ var singleplayerState = {
   },
 
   quickstart: function() {
+    sounds.playSound(sounds.clickSounds);
     game.state.start('play');
   },
 
   createpuzzle: function() {
+    sounds.playSound(sounds.clickSounds);
     game.state.start('play');
   },
 
   pickpuzzle: function() {
+    sounds.playSound(sounds.clickSounds);
     game.state.start('jigsawselect');
   },
 
   home: function() {
+    sounds.playSound(sounds.clickSounds);
     game.state.start('home');
   }
 };
