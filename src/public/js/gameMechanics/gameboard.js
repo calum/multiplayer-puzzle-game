@@ -47,9 +47,8 @@ var gameboard = {
   addPuzzle: function(selectedJigsaw) {
 
     if (!selectedJigsaw) {
-      var selectedJigsaw = 'penguin_puzzle';
+      var selectedJigsaw = 'penguin';
     }
-    console.log(selectedJigsaw);
 
     // Open the properties file:
     properties = game.cache.getJSON(selectedJigsaw+'_prop');

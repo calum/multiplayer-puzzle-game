@@ -10,14 +10,8 @@ function start(server) {
   io = io(server)
 
   io.on('connection', (socket) => {
-    console.log('a user connected')
-
     // send this user the list of puzzles:
     socket.emit('puzzles', JSON.stringify(puzzleList))
-
-    socket.on('disconnect', () => {
-      console.log('user disconnected')
-    })
   })
 }
 
