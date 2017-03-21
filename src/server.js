@@ -4,6 +4,8 @@ var app = express()
 
 var path = require('path')
 
+var fs = require('fs')
+
 var winston = require('winston')
 
 var port = process.env.PORT || 3000;
@@ -22,6 +24,19 @@ app.use(express.static(path.join(__dirname+'/public')))
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname+'/public/index.html'))
   winston.info('Sending game to new client.')
+})
+
+// respond to requests about the puzzles:
+app.get('/puzzles', (req, res) => {
+  fs.readdir(path.join(__dirname+'/public/assets/'), (err, files) => {
+    if (err) {
+      return res.end(err.message)
+    }
+    files.forEach(file => {
+      console.log(file);
+    })
+    res.end('');
+  })
 })
 
 app.listen(port, () => {

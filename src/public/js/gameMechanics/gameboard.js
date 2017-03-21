@@ -44,10 +44,15 @@ var gameboard = {
   * to the game board.
   *
   **/
-  addPuzzle: function(puzzle) {
+  addPuzzle: function(selectedJigsaw) {
+
+    if (!selectedJigsaw) {
+      var selectedJigsaw = 'penguin_puzzle';
+    }
+    console.log(selectedJigsaw);
 
     // Open the properties file:
-    properties = game.cache.getJSON(puzzle+'_prop');
+    properties = game.cache.getJSON(selectedJigsaw+'_prop');
     var puzzle_height = properties.overview.height;
     var puzzle_width = properties.overview.width;
     var puzzleNumXPieces = properties.overview.horizontalPieces;
@@ -65,7 +70,7 @@ var gameboard = {
         var x = posX + properties[''+i+j].topLeftCorner.x*puzzle_width*scale;
         var y = posY + properties[''+i+j].topLeftCorner.y*puzzle_height*scale;
 
-        puzzlePieces[''+i+j] = game.add.sprite(x, y, puzzle+i+j);
+        puzzlePieces[''+i+j] = game.add.sprite(x, y, selectedJigsaw+i+j);
         puzzlePieces[''+i+j].scale.x *= scale;
         puzzlePieces[''+i+j].scale.y *= scale;
 
@@ -147,7 +152,7 @@ var gameboard = {
     playState.spriteDrag(false);
 
     // Remove this piece from the selection area if it has been moved enough
-    if (sprite.position.y < game.camera.position.y + game.camera.height*(1-selectionAreaPercent)) {
+    if ( unsetPieces.children.indexOf(sprite) > -1 && sprite.position.y < game.camera.position.y + game.camera.height*(1-selectionAreaPercent)) {
       unsetPieces.remove(sprite);
       movedPieces.add(sprite);
 

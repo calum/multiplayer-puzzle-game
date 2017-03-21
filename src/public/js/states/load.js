@@ -9,8 +9,6 @@ var loadState = {
                       {font: '30px Courier', fill: '#ffffff'});
 
     // Load all the assets
-    game.load.image('player', '../assets/player.png');
-    game.load.image('win', '../assets/win.png');
 
     // Load the linux puzzle:
     for (var i=0; i<8; i++) {
@@ -21,6 +19,10 @@ var loadState = {
     }
     //game.load.json('linux_puzzle_prop','../assets/linux_puzzle/properties.json');
     game.load.json('penguin_puzzle_prop','../assets/penguin_puzzle/properties.json');
+
+    // load the puzzles:
+    game.load.image('penguin', '../assets/penguin.png');
+    game.load.image('linux', '../assets/linux.png');
 
   },
 
