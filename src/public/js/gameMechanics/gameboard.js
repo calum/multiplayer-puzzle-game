@@ -40,11 +40,8 @@ var gameboard = {
   },
 
   /**
-  * Add the linux puzzle
+  * Add the puzzle
   * to the game board.
-  *
-  * Some pieces have an extra (23*scale)px width and
-  * (19*scale)px height from the jigsaw edges.
   *
   **/
   addPuzzle: function(puzzle) {
@@ -56,7 +53,7 @@ var gameboard = {
     var puzzleNumXPieces = properties.overview.horizontalPieces;
     var puzzleNumYPieces = properties.overview.verticalPieces;
 
-    var scale = boardLength/puzzle_height;
+    var scale = boardLength*(gameBoardSize)/puzzle_height;
 
     var posX = game.world.width*((1-gameBoardSize)/2);
     var posY = game.world.height*((1-gameBoardSize - selectionAreaPercent)/2);
