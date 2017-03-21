@@ -1,6 +1,11 @@
 
 var bootState = {
 
+  preload: function() {
+    // load the loading page
+    loadingbar.load();
+  },
+
   // The Phaser create function
   create: function () {
 
