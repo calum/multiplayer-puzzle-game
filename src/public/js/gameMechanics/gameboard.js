@@ -170,7 +170,8 @@ var gameboard = {
         setPieces.add(graph.V[i]);
         graph.V[i].input.draggable = false;
 
-        if (setPieces.children.length == properties.overview.horizontalPieces*properties.overview.verticalPieces) {
+        var winCondition = properties.overview.horizontalPieces*properties.overview.verticalPieces;
+        if (setPieces.children.length == winCondition || utils.getNumGraphs() == 1) {
           playState.Win();
         }
       }

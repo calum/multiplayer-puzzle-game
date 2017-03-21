@@ -35,6 +35,10 @@ utils = {
   **/
   graphs: [],
 
+  getNumGraphs: function() {
+    return this.graphs.length;
+  },
+
   createGraph: function(vertices, edges) {
     this.graphs.push({V: vertices, E: edges});
   },
