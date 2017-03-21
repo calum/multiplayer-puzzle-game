@@ -8,6 +8,8 @@ var bootState = {
     var username = prompt("Enter a username:", "username");
     localStorage.setItem("username",username);
 
+    socket.send('connection');
+
     // Call the load state
     game.state.start('load');
 

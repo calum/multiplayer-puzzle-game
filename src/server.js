@@ -2,6 +2,8 @@ var express = require('express')
 
 var app = express()
 
+var http = require('http').Server(app)
+
 var path = require('path')
 
 var fs = require('fs')
@@ -9,6 +11,11 @@ var fs = require('fs')
 var winston = require('winston')
 
 var port = process.env.PORT || 3000;
+
+var networking = require('./networking.js')
+
+// start the socket server
+networking.start(http)
 
 
 /**
@@ -39,6 +46,6 @@ app.get('/puzzles', (req, res) => {
   })
 })
 
-app.listen(port, () => {
+http.listen(port, () => {
   winston.info('Server is listening on port '+port+'.')
 })

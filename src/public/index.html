@@ -5,7 +5,7 @@
         <meta charset="UTF-8" />
 
         <!-- Giving the page it's title -->
-        <title>hello phaser!</title>
+        <title>Jigsaw game</title>
 
         <!-- Loading our JavaScript files -->
         <script src="./js/phaser.io/phaser.min.js"></script>
@@ -24,6 +24,13 @@
         <!-- Loading our game files -->
         <script src="./js/gameMechanics/gameboard.js"></script>
         <script src="./js/gameMechanics/utils.js"></script>
+
+        <!-- Load the websockets module -->
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+        // create websocket:
+        var socket = io();
+        </script>
 
 
     </head>
