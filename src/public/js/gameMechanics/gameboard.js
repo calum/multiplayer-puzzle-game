@@ -70,7 +70,7 @@ var gameboard = {
         var x = posX + properties[''+i+j].topLeftCorner.x*puzzle_width*scale;
         var y = posY + properties[''+i+j].topLeftCorner.y*puzzle_height*scale;
 
-        puzzlePieces[''+i+j] = game.add.sprite(x, y, selectedJigsaw+i+j);
+        puzzlePieces[''+i+j] = game.add.sprite(x, y, selectedJigsaw+'_puzzle'+i+j);
         puzzlePieces[''+i+j].scale.x *= scale;
         puzzlePieces[''+i+j].scale.y *= scale;
 

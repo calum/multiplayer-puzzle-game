@@ -20,10 +20,6 @@ var loadState = {
     //game.load.json('linux_puzzle_prop','../assets/linux_puzzle/properties.json');
     game.load.json('penguin_puzzle_prop','../assets/penguin_puzzle/properties.json');
 
-    // load the puzzles:
-    game.load.image('penguin', '../assets/penguin.png');
-    game.load.image('linux', '../assets/linux.png');
-
   },
 
   create: function() {

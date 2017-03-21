@@ -20,6 +20,23 @@ var selectionArea;
 
 var playState = {
 
+  // load the assets
+  preload: function() {
+
+    // load the selected puzzle (if one was selected):
+    var jigsawName = jigsawselect.selectedJigsaw;
+    if (!jigsawName) {
+      // if no jigsaw, pick the penguin one
+      jigsawName = 'penguin';
+    }
+    for (var i=0; i<8; i++) {
+      for (var j=0; j<8; j++ ){
+        game.load.image(jigsawName+'_puzzle'+i+j, '../assets/'+jigsawName+'_puzzle/'+i+j+'.png');
+      }
+    }
+    game.load.json(jigsawName+'_prop','../assets/'+jigsawName+'_puzzle/properties.json');
+  },
+
 
   create: function() {
 

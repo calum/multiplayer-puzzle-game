@@ -8,7 +8,10 @@ var bootState = {
     var username = prompt("Enter a username:", "username");
     localStorage.setItem("username",username);
 
-    socket.send('connection');
+    // start the basic listeners:
+    socket.on('puzzles', function(listOfPuzzles) {
+      jigsawselect.jigsaws = JSON.parse(listOfPuzzles);
+    })
 
     // Call the load state
     game.state.start('load');
