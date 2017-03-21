@@ -81,6 +81,9 @@ var gameboard = {
         // Add their final position:
         puzzlePieces[''+i+j].finalPosition = {x: x, y: y};
 
+        // Add the name of this piece:
+        puzzlePieces[''+i+j].name = ''+i+j;
+
         // Create a graph for each piece:
         utils.createGraph([ puzzlePieces[''+i+j] ],[]);
       }
@@ -147,14 +150,19 @@ var gameboard = {
     if (sprite.position.y < game.camera.position.y + game.camera.height*(1-selectionAreaPercent)) {
       unsetPieces.remove(sprite);
       movedPieces.add(sprite);
+
+      // compact the selection area to fill the missing space from the sprite being removed
+      var indexOfMovedPiece = puzzlePieceOrder.indexOf(sprite.name);
+      unsetPieces.forEach(function(piece) {
+        var indexOfPiece = puzzlePieceOrder.indexOf(piece.name);
+        // If this is to the left, move to the right to fill the new gap
+        // If this is to the right, move to the left...
+        piece.position.x += 0.6*Math.sign(indexOfMovedPiece-indexOfPiece)*sprite.width;
+      });
     }
 
     // Get the graph for this piece:
     var graph = utils.findGraph(sprite);
-    if (!graph) {
-      console.log('no graph');
-      return;
-    }
 
     // Snap the piece and it's neighbours into place when it is correctly placed:
     if (Math.abs(sprite.position.x - sprite.finalPosition.x) < snapradius && Math.abs(sprite.position.y - sprite.finalPosition.y) < snapradius) {
