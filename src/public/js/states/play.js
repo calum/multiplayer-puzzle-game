@@ -86,6 +86,7 @@ var playState = {
     onScreen.add(selectionArea);
     onScreen.add(timer);
     onScreen.add(unsetPieces); // Add pieces from gameboard.js
+    
   },
 
   update: function() {

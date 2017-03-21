@@ -11,6 +11,9 @@ var spriteunset;
 var movedPieces;
 var setPieces;
 
+// sounds
+var jigsawsounds = [];
+
 // radius of pixels when placed within the piece
 // will snap into the correct position
 var snapradius = 7;
@@ -124,6 +127,12 @@ var gameboard = {
 
     // Place the pieces into the unset position
     this.placePieces();
+
+    // Add the jigsaw sounds:
+    jigsawsounds.push(game.add.audio('jigsawFit1'));
+    jigsawsounds.push(game.add.audio('jigsawFit2'));
+    jigsawsounds.push(game.add.audio('jigsawFit3'));
+    jigsawsounds.push(game.add.audio('jigsawFit4'));
   },
 
   onDragStart: function(sprite, pointer) {
@@ -170,6 +179,10 @@ var gameboard = {
 
     // Snap the piece and it's neighbours into place when it is correctly placed:
     if (Math.abs(sprite.position.x - sprite.finalPosition.x) < snapradius && Math.abs(sprite.position.y - sprite.finalPosition.y) < snapradius) {
+
+      // play the sound of the pieces snapping together
+      this.playSound();
+
       // For each piece in the graph, set to the final position:
       for (let i=0; i<graph.V.length; i++) {
         // set the final position
@@ -219,6 +232,9 @@ var gameboard = {
             // lock these pieces together!
             graph.V[j].position.x = neighbour.position.x + graph.V[j].finalPosition.x - neighbour.finalPosition.x;
             graph.V[j].position.y = neighbour.position.y + graph.V[j].finalPosition.y - neighbour.finalPosition.y;
+
+            // play the sound of the pieces snapping together
+            this.playSound();
 
             // update the positions of all connected pieces:
             this.dragUpdate(graph.V[j],null, graph.V[j].position.x, graph.V[j].position.y, null);
@@ -273,6 +289,14 @@ var gameboard = {
       puzzlePieces[piece].position.y = game.camera.height - 0.5*(selectionArea.height + puzzlePieces[piece].height);
       unsetPieces.add(puzzlePieces[piece]);
     }
+  },
+
+  // plays a random jigsaw fit sound
+  playSound: function() {
+    var rand = jigsawsounds[Math.floor(Math.random() * jigsawsounds.length)];
+    console.log('playing sound');
+
+    rand.play();
   },
 
   // move all unset pieces to the right by dx amount

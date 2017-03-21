@@ -9,6 +9,15 @@ var loadState = {
                       {font: '30px Courier', fill: '#ffffff'});
 
     // Load all the assets
+
+    // load the sounds:
+
+    // load the jigsaw sounds:
+    game.load.audio('jigsawFit1', 'assets/sounds/jigsawpiecePlaced/1.mp3');
+    game.load.audio('jigsawFit2', 'assets/sounds/jigsawpiecePlaced/2.mp3');
+    game.load.audio('jigsawFit3', 'assets/sounds/jigsawpiecePlaced/3.mp3');
+    game.load.audio('jigsawFit4', 'assets/sounds/jigsawpiecePlaced/4.mp3');
+
   },
 
   create: function() {
