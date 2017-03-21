@@ -155,6 +155,7 @@ var gameboard = {
     // Get the graph for this piece:
     var graph = utils.findGraph(sprite);
     if (!graph) {
+      console.log('no graph');
       return;
     }
 
@@ -170,7 +171,7 @@ var gameboard = {
         graph.V[i].input.draggable = false;
 
         if (setPieces.children.length == properties.overview.horizontalPieces*properties.overview.verticalPieces) {
-          play.Win();
+          playState.Win();
         }
       }
 
@@ -192,15 +193,18 @@ var gameboard = {
 
             // remove this sprite from the neighbours of the neighbour
             var index = neighbour.neighbours.indexOf(graph.V[j]);
-            neighbour.neighbours.splice(index,1);
+            if (index > -1) {
+              neighbour.neighbours.splice(index,1);
+            }
 
-            // exit this loop
+            // continue to the next neighbour
             continue;
           }
 
           var distanceX = graph.V[j].finalPosition.x - neighbour.finalPosition.x;
           var distanceY = graph.V[j].finalPosition.y - neighbour.finalPosition.y;
 
+          // Check if these neighbours are close enough
           if (Math.abs(graph.V[j].position.x - neighbour.position.x - distanceX) < snapradius && Math.abs(graph.V[j].position.y - neighbour.position.y - distanceY) < snapradius) {
             // lock these pieces together!
             graph.V[j].position.x = neighbour.position.x + graph.V[j].finalPosition.x - neighbour.finalPosition.x;
@@ -210,16 +214,18 @@ var gameboard = {
             this.dragUpdate(graph.V[j],null, graph.V[j].position.x, graph.V[j].position.y, null);
 
             // Join these Graphs together by the edge connecting them
-            joins.push({piece1: graph.V[i], piece2: neighbour, edge: [graph.V[j],neighbour] });
+            joins.push({piece1: graph.V[j], piece2: neighbour, edge: [graph.V[j],neighbour] });
 
             // remove this neighbour from the sprite
             graph.V[j].neighbours.splice(i,1);
 
             // remove this sprite from the neighbours of the neighbour
             var index = neighbour.neighbours.indexOf(graph.V[j]);
-            neighbour.neighbours.splice(index,1);
+            if (index > -1) {
+              neighbour.neighbours.splice(index,1);
+            }
 
-            // break out the loop
+            // Go to next neighbour
             continue;
           }
 
