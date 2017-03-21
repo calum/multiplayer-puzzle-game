@@ -63,14 +63,17 @@ var gamelobbyState = {
   },
 
   startGame: function() {
+    sounds.playSound(sounds.clickSounds);
     game.state.start('play');
   },
 
   selectpuzzle: function() {
+    sounds.playSound(sounds.clickSounds);
     game.state.start('play');
   },
 
   close: function() {
+    sounds.playSound(sounds.clickSounds);
     game.state.start('home');
   }
 };

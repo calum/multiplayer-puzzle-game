@@ -18,6 +18,8 @@ var loadState = {
     game.load.audio('jigsawFit3', 'assets/sounds/jigsawpiecePlaced/3.mp3');
     game.load.audio('jigsawFit4', 'assets/sounds/jigsawpiecePlaced/4.mp3');
 
+    // load click sounds
+    game.load.audio('click1', 'assets/sounds/clicks/1.mp3');
   },
 
   create: function() {

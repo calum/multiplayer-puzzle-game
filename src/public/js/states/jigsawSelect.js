@@ -50,6 +50,7 @@ var jigsawselect = {
   },
 
   pickJigsaw: function(puzzle) {
+    sounds.playSound(sounds.clickSounds);
     this.selectedJigsaw = puzzle.name;
     game.state.start('play');
   }
