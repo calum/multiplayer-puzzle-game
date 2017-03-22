@@ -22,6 +22,8 @@ var playState = {
 
   // load the assets
   preload: function() {
+    //add loading bar
+    loadingbar.create();
 
     // load the selected puzzle (if one was selected):
     var jigsawName = jigsawselect.selectedJigsaw;
@@ -32,9 +34,12 @@ var playState = {
     for (var i=0; i<8; i++) {
       for (var j=0; j<8; j++ ){
         game.load.image(jigsawName+'_puzzle'+i+j, '../assets/'+jigsawName+'_puzzle/'+i+j+'.png');
+        loadingbar.setPercentage(((i+j)*100)/64);
       }
     }
     game.load.json(jigsawName+'_prop','../assets/'+jigsawName+'_puzzle/properties.json');
+
+    loadingbar.clear();
   },
 
 

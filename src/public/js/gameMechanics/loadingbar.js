@@ -38,6 +38,7 @@ var loadingbar = {
       piece = game.add.sprite(x, y, 'loading_puzzle'+name);
       piece.scale.x *= scale;
       piece.scale.y *= scale;
+      this.setPieces.push(piece);
     }
   },
 
@@ -63,9 +64,6 @@ var loadingbar = {
         var x = posX + properties[''+i+j].topLeftCorner.x*puzzle_width*scale;
         var y = posY + properties[''+i+j].topLeftCorner.y*puzzle_height*scale;
 
-        //this.pieces[''+i+j] = game.add.sprite(x, y, 'loading_puzzle'+i+j);
-        //this.pieces[''+i+j].scale.x *= scale;
-        //this.pieces[''+i+j].scale.y *= scale;
         this.pieces[''+i+j] = {};
         this.pieces[''+i+j].name = ''+i+j;
         this.pieces[''+i+j].position = {x:x,y:y};
@@ -77,6 +75,12 @@ var loadingbar = {
     // create random array:
     this.buffer = utils.shuffle(Object.keys(this.pieces));
 
-  }
+  },
+
+  clear: function() {
+    for (var i=0; i<this.setPieces.length; i++){
+      this.setPieces[i].destroy();
+    }
+  },
 
 };
