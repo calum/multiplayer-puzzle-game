@@ -15,9 +15,30 @@ var loadingbar = {
 
   pieces: {},
 
+  buffer: [],
+
+  setPieces: [],
+
   // Set the loaded percent
   setPercentage: function(percent) {
+    this.percent = percent;
+    this.update();
+  },
 
+  update: function() {
+    var numberOfPieces = (this.percent/100)*this.buffer.length;
+
+    for (i=this.setPieces.length; i<numberOfPieces; i++) {
+      var piece = this.pieces[this.buffer[i]];
+      var x = piece.position.x;
+      var y = piece.position.y;
+      var name = piece.name;
+      var scale = piece.scale;
+
+      piece = game.add.sprite(x, y, 'loading_puzzle'+name);
+      piece.scale.x *= scale;
+      piece.scale.y *= scale;
+    }
   },
 
   // create the loading board
@@ -42,12 +63,19 @@ var loadingbar = {
         var x = posX + properties[''+i+j].topLeftCorner.x*puzzle_width*scale;
         var y = posY + properties[''+i+j].topLeftCorner.y*puzzle_height*scale;
 
-        this.pieces[''+i+j] = game.add.sprite(x, y, 'loading_puzzle'+i+j);
-        this.pieces[''+i+j].scale.x *= scale;
-        this.pieces[''+i+j].scale.y *= scale;
+        //this.pieces[''+i+j] = game.add.sprite(x, y, 'loading_puzzle'+i+j);
+        //this.pieces[''+i+j].scale.x *= scale;
+        //this.pieces[''+i+j].scale.y *= scale;
+        this.pieces[''+i+j] = {};
+        this.pieces[''+i+j].name = ''+i+j;
+        this.pieces[''+i+j].position = {x:x,y:y};
+        this.pieces[''+i+j].scale = scale;
 
       }
     }
+
+    // create random array:
+    this.buffer = utils.shuffle(Object.keys(this.pieces));
 
   }
 
