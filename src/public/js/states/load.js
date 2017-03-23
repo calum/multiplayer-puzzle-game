@@ -25,7 +25,7 @@ var loadState = {
     game.load.audio('click1', 'assets/sounds/clicks/1.mp3');
     loadingbar.setPercentage(100);
 
-    loadingbar.clear();
+    //loadingbar.clear();
 
   },
 
