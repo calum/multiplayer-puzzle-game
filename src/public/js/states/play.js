@@ -22,6 +22,8 @@ var playState = {
 
   // load the assets
   preload: function() {
+    //add loading bar
+    loadingbar.create();
 
     // load the selected puzzle (if one was selected):
     var jigsawName = jigsawselect.selectedJigsaw;
@@ -32,21 +34,20 @@ var playState = {
     for (var i=0; i<8; i++) {
       for (var j=0; j<8; j++ ){
         game.load.image(jigsawName+'_puzzle'+i+j, '../assets/'+jigsawName+'_puzzle/'+i+j+'.png');
+        loadingbar.setPercentage(((i+j)*100)/64);
       }
     }
     game.load.json(jigsawName+'_prop','../assets/'+jigsawName+'_puzzle/properties.json');
+    loadingbar.setPercentage(100);
   },
 
 
   create: function() {
 
-    // Change background color to a light colour
-    game.stage.backgroundColor = "#ffffcc";
-
     // Add the puzzle piece selection area
     selectionArea = game.add.graphics(0,0);
-    selectionArea.beginFill(0xffffff);
-    selectionArea.lineStyle(2, 0x0000FF, 1);
+    selectionArea.beginFill(0xb0d298);
+    selectionArea.lineStyle(2, 0x25633b, 1);
     selectionArea.drawRect(
       0,
       game.world.height*(1-selectionAreaPercent),
@@ -63,7 +64,7 @@ var playState = {
 
     // The main layout of the game board:
     var graphics = game.add.graphics(0,0);
-    graphics.beginFill(0xffffff);
+    graphics.beginFill(0x25633b);
     // Draw the game board with the graphics object
     gameboard.draw(graphics);
     // Fill the graphics objects
@@ -86,7 +87,7 @@ var playState = {
     onScreen.add(selectionArea);
     onScreen.add(timer);
     onScreen.add(unsetPieces); // Add pieces from gameboard.js
-    
+
   },
 
   update: function() {
@@ -176,7 +177,7 @@ var playState = {
     var timerY = game.camera.position.y;
     timer.destroy();
     timer = game.add.text(timerX, timerY,
-                    'Time: '+(Date.now()-startTime),
+                    'Time: '+(Math.round((Date.now()-startTime)/1000)),
                     {font: '25px Arial', fill: '#0x0000FF'});
     onScreen.add(timer);
   },
@@ -188,7 +189,6 @@ var playState = {
 
   Win: function() {
     // game over, you win!
-    game.stage.backgroundColor = "#000000";
     game.state.start('win');
   }
 };
