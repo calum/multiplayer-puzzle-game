@@ -38,8 +38,7 @@ var playState = {
       }
     }
     game.load.json(jigsawName+'_prop','../assets/'+jigsawName+'_puzzle/properties.json');
-
-    loadingbar.clear();
+    loadingbar.setPercentage(100);
   },
 
 

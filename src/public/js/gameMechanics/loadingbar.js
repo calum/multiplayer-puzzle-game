@@ -39,7 +39,7 @@ var loadingbar = {
       piece = game.add.sprite(x, y, 'loading_puzzle'+name);
       piece.scale.x *= scale;
       piece.scale.y *= scale;
-      //this.setPieces.push(piece);
+      this.setPieces.push(piece);
     }
   },
 
@@ -55,7 +55,7 @@ var loadingbar = {
     var scale = game.world.width*(0.7)/puzzle_width;
 
     var posX = game.world.width*((1-0.7)/2);
-    var posY = game.world.height*((1-0.7 - 0.2)/2);
+    var posY = game.world.height*((0.4)/2);
 
 
     for (var i=0; i<8; i++){

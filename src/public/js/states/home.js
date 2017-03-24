@@ -39,8 +39,6 @@ var homeState = {
     // Ask the server for the puzzles:
     socket.emit('puzzles', 'Gimmie puzzle list');
 
-    loadingbar.create();
-    loadingbar.setPercentage(75);
   },
 
 
