@@ -39,7 +39,7 @@ var loadingbar = {
       piece = game.add.sprite(x, y, 'loading_puzzle'+name);
       piece.scale.x *= scale;
       piece.scale.y *= scale;
-      this.setPieces.push(piece);
+      //this.setPieces.push(piece);
     }
   },
 
