@@ -21,7 +21,7 @@ The Phaser game states are all defined inside `src/public/js/states/`. These are
 
 - [x] Release 0.1 - Frontend design [Completed 16/03/17]
 - [x] Release 0.2 - Module to create puzzle pieces from an image [Completed 8/03/17]
-- [ ] Release 0.3 - Game mechanics
+- [x] Release 0.3 - Game mechanics [Completed 24/03/17]
 - [ ] Release 0.4 - Single player puzzle game
 - [ ] Release 0.5 - Server/Client communications
 - [ ] Release 0.6 - Game lobby with ranking by time for each puzzle
