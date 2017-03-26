@@ -1,5 +1,8 @@
 var express = require('express')
 
+var bodyParser = require('body-parser')
+var jsonParser = bodyParser.json()
+
 var app = express()
 
 var http = require('http').Server(app)
@@ -13,6 +16,8 @@ var winston = require('winston')
 var port = process.env.PORT || 3000;
 
 var networking = require('./networking.js')
+
+var database = require('./database.js')
 
 // start the socket server
 networking.start(http)
@@ -29,7 +34,7 @@ app.use(express.static(path.join(__dirname+'/public')))
 
 // Send index.html to clients
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname+'/public/index.html'))
+  res.sendFile(path.join(__dirname+'/public/game.html'))
   winston.info('Sending game to new client.')
 })
 
@@ -44,6 +49,12 @@ app.get('/puzzles', (req, res) => {
     })
     res.end('');
   })
+})
+
+// deal with new accounts
+app.post('/user', jsonParser, (req,res) => {
+  console.log(req.body)
+  res.end(JSON.stringify({hello:'world'}))
 })
 
 http.listen(port, () => {

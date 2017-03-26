@@ -20,9 +20,12 @@
   },
   "homepage": "https://github.com/CalumForsterDev/multiplayer-puzzle-game#readme",
   "dependencies": {
+    "body-parser": "^1.17.1",
     "express": "^4.14.1",
     "jigsaw-builder": "^1.1.1",
+    "password-hash": "^1.2.2",
     "path": "^0.12.7",
+    "redis": "^2.7.1",
     "socket.io": "^1.7.3",
     "winston": "^2.3.1"
   },
