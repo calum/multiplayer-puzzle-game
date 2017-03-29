@@ -11,33 +11,41 @@ function connect() {
   })
 }
 
-function storeUser(username, password) {
+function storeUser(username, password, callback) {
   // check if this username is already taken
   client.get(username, (err, reply) => {
     if (err) {
-      return err
+      console.error(err)
+      return callback(err.message)
     }
     if (reply == null) {
       // Save this as a new user
       var hashedPassword = passwordHash.generate(password)
       client.set(username, hashedPassword)
+      return callback()
     }
     else {
       // Otherwise, this username is taken
-      return new Error("Username is already in use")
+      return callback("Username is already in use")
     }
   })
 }
 
-function verifyUser(username, password) {
+function verifyUser(username, password, callback) {
   client.get(username, (err, hashedPassword) => {
     if (err) {
-      return err
+      console.error(err)
+      return callback(err.message)
     }
     if (hashedPassword == null) {
-      return new Error("No user with that username")
+      return callback("No user with that username")
     }
-    return passwordHash.verify(password, hashedPassword)
+    if ( passwordHash.verify(password, hashedPassword) ) {
+      return callback()
+    }
+    else {
+      return callback('invalid email and password')
+    }
   })
 }
 

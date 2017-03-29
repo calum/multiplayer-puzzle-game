@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>Signin Template for Bootstrap</title>
+    <title>Signin or Register</title>
 
     <!-- Bootstrap core CSS -->
     <link href="./css/bootstrap.min.css" rel="stylesheet">
@@ -28,23 +28,25 @@
 
     <div class="container">
 
-      <form class="form-signin" id="form" onsubmit="return submit()" >
+      <form class="form-signin" action="/" method="POST" enctype="multipart/form-data" id="form" >
         <h2 class="form-signin-heading" id="message">Please sign in</h2>
+        <label for="inputName" class="sr-only">Name</label>
+        <input name="inputName" type="text" id="inputName" class="form-control" placeholder="name" required autofocus>
         <label for="inputEmail" class="sr-only">Email address</label>
         <input name="inputEmail" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
         <input name="inputPassword" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
         <div class="checkbox">
           <label>
-            <input type="checkbox" value="remember-me"> Remember me
+            <input type="checkbox" name="rememberMe" value="remember-me"> Remember me
           </label>
         </div>
         <div class="checkbox">
           <label>
-            <input type="checkbox" value="register" id="no-account"> No account?
+            <input type="checkbox" name="register" value="register" id="no-account"> No account?
           </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submitBtn" >Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submitBtn" id="submitBtn" >Sign in</button>
       </form>
 
     </div> <!-- /container -->
@@ -59,6 +61,7 @@
     var submitButton = document.getElementById("submitBtn");
     var loginMessage = document.getElementById("message");
     var registerCheckbox = document.getElementById("no-account");
+    registerCheckbox.checked = false;
 
     // user inputs
     var username = document.getElementById("inputEmail");
@@ -66,7 +69,7 @@
 
     // when the register checkbox is ticked, we swap to registration mode
     registerCheckbox.addEventListener("click", function() {
-      if (submitButton.firstChild.nodeValue == "Sign in") {
+      if (registerCheckbox.checked) {
         loginMessage.firstChild.nodeValue = "Please register an account"
         submitButton.firstChild.nodeValue = "Register";
       }
@@ -75,63 +78,6 @@
         submitButton.firstChild.nodeValue = "Sign in";
       }
     });
-    /*
-    // when the register button is pressed we send the data to the server
-    submitButton.addEventListener("click", function() {
-      // get all the values:
-      var body = {
-        username: username.textContent ,
-        password: password.textContent
-      };
-
-      console.log(body);
-
-      // create the POST request
-      var createUser = new Request(
-        'http://192.168.0.40:3000/user',
-        {
-          method: 'POST',
-          body: JSON.stringify(body)
-        }
-      );
-
-      fetch(createUser)
-        .then(function(response) {
-            if(response.status == 200) return response.json();
-            else throw new Error('Something went wrong on api server!');
-        })
-        .then(function(response) {
-            console.debug(response);
-            // ...
-        })
-        .catch(function(error) {
-            console.error(error);
-        });
-    }); */
-
-    submit = function() {
-      // create the POST request
-      var createUser = new Request(
-        'http://192.168.0.40:3000/user',
-        {
-          method: 'POST',
-          body: JSON.stringify({username: "heelo", password: "hi"})
-        }
-      );
-
-      fetch(createUser)
-        .then(function(response) {
-            if(response.status == 200) return response.json();
-            else throw new Error('Something went wrong on api server!');
-        })
-        .then(function(response) {
-            console.debug(response);
-            // ...
-        })
-        .catch(function(error) {
-            console.error(error);
-        });
-    }
 
   </script>
 

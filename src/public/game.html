@@ -32,6 +32,18 @@
         <script>
         // create websocket:
         var socket = io();
+
+        // save the username:
+        var cookie = document.cookie;
+        var username = cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+
+        if (!username) {
+          username = 'guest';
+        }
+
+        bootState.username = username;
+
+        console.log('username: '+username);
         </script>
 
 
