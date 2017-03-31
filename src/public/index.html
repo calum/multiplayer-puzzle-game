@@ -1,46 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
 
-<!doctype html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
+    <title>Signin or Register</title>
 
-        <!-- Giving the page it's title -->
-        <title>Jigsaw game</title>
+    <!-- Bootstrap core CSS -->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
 
-        <!-- Loading our JavaScript files -->
-        <script src="./js/phaser.io/phaser.min.js"></script>
-        <!-- Loading our game states -->
-        <script src="./js/states/boot.js"></script>
-        <script src="./js/states/load.js"></script>
-        <script src="./js/states/home.js"></script>
-        <script src="./js/states/options.js"></script>
-        <script src="./js/states/multiPlayer.js"></script>
-        <script src="./js/states/gamelobby.js"></script>
-        <script src="./js/states/singlePlayer.js"></script>
-        <script src="./js/states/play.js"></script>
-        <script src="./js/states/jigsawSelect.js"></script>
-        <script src="./js/states/win.js"></script>
-        <script src="./js/states/game.js"></script>
-        <!-- Loading our game files -->
-        <script src="./js/gameMechanics/gameboard.js"></script>
-        <script src="./js/gameMechanics/utils.js"></script>
-        <script src="./js/gameMechanics/sounds.js"></script>
-        <script src="./js/gameMechanics/loadingbar.js"></script>
+    <!-- Custom styles for this template -->
+    <link href="./css/signin.css" rel="stylesheet">
 
-        <!-- Load the websockets module -->
-        <script src="/socket.io/socket.io.js"></script>
-        <script>
-        // create websocket:
-        var socket = io();
-        </script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <form class="form-signin" action="/" method="POST" enctype="multipart/form-data" id="form" >
+        <h2 class="form-signin-heading" id="message">Please sign in</h2>
+        <label for="inputName" class="sr-only">Name</label>
+        <input name="inputName" type="text" id="inputName" class="form-control" placeholder="name" required autofocus>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input name="inputEmail" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input name="inputPassword" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="rememberMe" value="remember-me"> Remember me
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="register" value="register" id="no-account"> No account?
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submitBtn" id="submitBtn" >Sign in</button>
+      </form>
+
+    </div> <!-- /container -->
 
 
-    </head>
-    <body>
+  </body>
 
-        <!--  This is the div that we will map
-              in the game.js file   -->
-        <div id="gameDiv"> </div>
 
-    </body>
+  <script>
+
+    // buttons and checkboxes
+    var submitButton = document.getElementById("submitBtn");
+    var loginMessage = document.getElementById("message");
+    var registerCheckbox = document.getElementById("no-account");
+    registerCheckbox.checked = false;
+
+    // user inputs
+    var username = document.getElementById("inputEmail");
+    var password = document.getElementById("inputPassword");
+
+    // when the register checkbox is ticked, we swap to registration mode
+    registerCheckbox.addEventListener("click", function() {
+      if (registerCheckbox.checked) {
+        loginMessage.firstChild.nodeValue = "Please register an account"
+        submitButton.firstChild.nodeValue = "Register";
+      }
+      else {
+        loginMessage.firstChild.nodeValue = "Please sign in"
+        submitButton.firstChild.nodeValue = "Sign in";
+      }
+    });
+
+  </script>
+
 </html>

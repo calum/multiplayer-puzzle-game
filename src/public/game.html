@@ -1,0 +1,58 @@
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+
+        <!-- Giving the page it's title -->
+        <title>Jigsaw game</title>
+
+        <!-- Loading our JavaScript files -->
+        <script src="./js/phaser.io/phaser.min.js"></script>
+        <!-- Loading our game states -->
+        <script src="./js/states/boot.js"></script>
+        <script src="./js/states/load.js"></script>
+        <script src="./js/states/home.js"></script>
+        <script src="./js/states/options.js"></script>
+        <script src="./js/states/multiPlayer.js"></script>
+        <script src="./js/states/gamelobby.js"></script>
+        <script src="./js/states/singlePlayer.js"></script>
+        <script src="./js/states/play.js"></script>
+        <script src="./js/states/jigsawSelect.js"></script>
+        <script src="./js/states/win.js"></script>
+        <script src="./js/states/game.js"></script>
+        <!-- Loading our game files -->
+        <script src="./js/gameMechanics/gameboard.js"></script>
+        <script src="./js/gameMechanics/utils.js"></script>
+        <script src="./js/gameMechanics/sounds.js"></script>
+        <script src="./js/gameMechanics/loadingbar.js"></script>
+
+        <!-- Load the websockets module -->
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+        // create websocket:
+        var socket = io();
+
+        // save the username:
+        var cookie = document.cookie;
+        var username = cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+
+        if (!username) {
+          username = 'guest';
+        }
+
+        bootState.username = username;
+
+        console.log('username: '+username);
+        </script>
+
+
+    </head>
+    <body>
+
+        <!--  This is the div that we will map
+              in the game.js file   -->
+        <div id="gameDiv"> </div>
+
+    </body>
+</html>

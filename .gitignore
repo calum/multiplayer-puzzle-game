@@ -1,0 +1,11 @@
+# ignore all coverage stuff
+.nyc_output/*
+coverage/*
+coverage.lcov
+codecov.yml
+
+# ignore all node modules
+node_modules/*
+
+# debug files
+npm-debug.log

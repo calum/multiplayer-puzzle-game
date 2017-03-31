@@ -1,6 +1,8 @@
 
 var bootState = {
 
+  username: '',
+
   preload: function() {
     // load the loading page
     loadingbar.load();
@@ -12,9 +14,8 @@ var bootState = {
     // set the background colour:
     game.stage.backgroundColor = 8095082;
 
-    // Ask for a username:
-    var username = prompt("Enter a username:", "username");
-    localStorage.setItem("username",username);
+    // save the username
+    localStorage.setItem("username",this.username);
 
     // start the basic listeners:
     socket.on('puzzles', function(listOfPuzzles) {
