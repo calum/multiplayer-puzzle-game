@@ -2,10 +2,11 @@ var mysql = require('mysql')
 var passwordHash = require('password-hash')
 var connection = mysql.createConnection({
   host: process.env.RDS_HOSTNAME || 'localhost',
-  user: process.env.RDS_DB_USERNAME || 'root',
+  user: process.env.RDS_USERNAME || 'root',
   password: process.env.RDS_PASSWORD || 'secret',
   database: process.env.RDS_NAME || 'test'
 })
+var winston = require('winston')
 
 var sqlSelect = 'SELECT * FROM ?? WHERE ?? = ?'
 var sqlInsert = 'INSERT INTO users SET ?'
