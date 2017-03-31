@@ -1,28 +1,59 @@
-var redis = require('redis')
+var mysql = require('mysql')
 var passwordHash = require('password-hash')
-var client
+var connection = mysql.createConnection({
+  host: process.env.RDS_HOSTNAME || 'localhost',
+  user: process.env.RDS_DB_USERNAME || 'root',
+  password: process.env.RDS_PASSWORD || 'secret',
+  database: process.env.RDS_NAME || 'test'
+})
 
+var sqlSelect = 'SELECT * FROM ?? WHERE ?? = ?'
+var sqlInsert = 'INSERT INTO users SET ?'
 
-function connect() {
-  client = redis.createClient()
+function connect(callback) {
+  // connect to the mysql database
+  connection.connect( (err) => {
+    if (err) {
+      return callback(err)
+    }
+    // create the databaser for user passwords
+    var userTable = connection.query('CREATE TABLE IF NOT EXISTS users (name VARCHAR(20), password VARCHAR(500))')
+    userTable
+      .on('error', (err) => {
+        winston.error(err)
+        return callback(err)
+      })
+      .on('done', () => {
+        return callback()
+      })
 
-  client.on("error", (err) => {
-    console.log("Error: "+ err)
   })
 }
 
 function storeUser(username, password, callback) {
+  var inserts = ['users', 'name', username]
+  // format the sql query
+  var query = mysql.format(sqlSelect, inserts)
+
   // check if this username is already taken
-  client.get(username, (err, reply) => {
+  connection.query(query, (err, results) => {
     if (err) {
-      console.error(err)
+      winston.error(err)
       return callback(err.message)
     }
-    if (reply == null) {
-      // Save this as a new user
+
+    // Save this as a new user if the username hasn't been taken
+    if (results.length == 0) {
+      // generate hashed password
       var hashedPassword = passwordHash.generate(password)
-      client.set(username, hashedPassword)
-      return callback()
+
+      connection.query(sqlInsert, {name: username, password: hashedPassword}, function(err, results, fields) {
+        if (err) {
+          winston.error(err)
+          return callback(err.message)
+        }
+        return callback()
+      })
     }
     else {
       // Otherwise, this username is taken
@@ -32,15 +63,21 @@ function storeUser(username, password, callback) {
 }
 
 function verifyUser(username, password, callback) {
-  client.get(username, (err, hashedPassword) => {
+  // create the query:
+  var inserts = ['users', 'name', username]
+  // format the sql query
+  var query = mysql.format(sqlSelect, inserts)
+
+  connection.query(query, (err, results) => {
     if (err) {
-      console.error(err)
+      winston.error(err)
       return callback(err.message)
     }
-    if (hashedPassword == null) {
+    if (results.length == 0) {
       return callback("No user with that username")
     }
-    if ( passwordHash.verify(password, hashedPassword) ) {
+    // verify the password
+    if ( passwordHash.verify(password, results[0].password) ) {
       return callback()
     }
     else {

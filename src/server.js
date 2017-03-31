@@ -22,6 +22,7 @@ var path = require('path')
 var fs = require('fs')
 
 var winston = require('winston')
+winston.level = process.env.LOG_LEVEL || 'silly'
 
 var port = process.env.PORT || 3000;
 
@@ -102,6 +103,8 @@ app.post('/', upload.array(), (req,res) => {
 })
 
 http.listen(port, () => {
-  database.connect()
+  database.connect( (err) => {
+    winston.error(err);
+  })
   winston.info('Server is listening on port '+port+'.')
 })
