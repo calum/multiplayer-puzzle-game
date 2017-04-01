@@ -5,19 +5,19 @@ var singleplayerState = {
     var nameLabel = game.add.text(80,80,'Single Player',
                     {font: '50px Arial', fill: '#ffffff'});
 
-    var quickStartLabel = game.add.text(80, game.world.height-240,
+    var quickStartLabel = game.add.text(80, game.camera.height-240,
                     'Quick Start (press "Q")',
                     {font: '25px Arial', fill: '#ffffff'});
 
-    var pickPuzzle = game.add.text(80, game.world.height-160,
+    var pickPuzzle = game.add.text(80, game.camera.height-160,
                     'Pick a puzzle (press "W")',
                     {font: '25px Arial', fill: '#ffffff'});
 
-    var createPuzzle = game.add.text(80, game.world.height-120,
+    var createPuzzle = game.add.text(80, game.camera.height-120,
                     'Create a puzzle (press "A")',
                     {font: '25px Arial', fill: '#ffffff'});
 
-    var homeLabel = game.add.text(80, game.world.height-80,
+    var homeLabel = game.add.text(80, game.camera.height-80,
                     'Home (press "E")',
                     {font: '25px Arial', fill: '#ffffff'});
 

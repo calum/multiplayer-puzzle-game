@@ -29,14 +29,14 @@ var gameboard = {
   * proportional to the shortest dimension
   **/
   draw: function(graphics) {
-    boardLength = game.world.height;
+    boardLength = game.world.height*(1-selectionAreaPercent);
     if (game.world.height > game.world.width) {
       boardLength = game.world.width;
     }
     graphics.moveTo(0,0);
     graphics.drawRect(
-      game.world.width*((1-gameBoardSize)/2),
-      game.world.height*((1-gameBoardSize - selectionAreaPercent)/2),
+      game.camera.width*((1-gameBoardSize)/2),
+      game.camera.height*((1-gameBoardSize)/2),
       boardLength*(gameBoardSize),
       boardLength*(gameBoardSize)
     );
@@ -62,8 +62,8 @@ var gameboard = {
 
     var scale = boardLength*(gameBoardSize)/puzzle_height;
 
-    var posX = game.world.width*((1-gameBoardSize)/2);
-    var posY = game.world.height*((1-gameBoardSize - selectionAreaPercent)/2);
+    var posX = game.camera.width*((1-gameBoardSize)/2);
+    var posY = game.camera.height*((1-gameBoardSize)/2);
 
     for (var i=0; i<8; i++){
       var j=0;

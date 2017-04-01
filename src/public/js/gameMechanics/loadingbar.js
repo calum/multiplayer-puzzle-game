@@ -27,9 +27,8 @@ var loadingbar = {
 
   update: function() {
     var numberOfPieces = (this.percent/100)*this.buffer.length;
-    var startingValue = this.setPieces.length;
 
-    for (i = startingValue; i<numberOfPieces; i++) {
+    for (i = 0; i<numberOfPieces; i++) {
       var piece = this.pieces[this.buffer[i]];
       var x = piece.position.x;
       var y = piece.position.y;
@@ -39,7 +38,7 @@ var loadingbar = {
       piece = game.add.sprite(x, y, 'loading_puzzle'+name);
       piece.scale.x *= scale;
       piece.scale.y *= scale;
-      //this.setPieces.push(piece);
+      this.setPieces.push(piece);
     }
   },
 

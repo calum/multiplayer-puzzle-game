@@ -12,19 +12,19 @@ var gamelobbyState = {
     var nameLabel = game.add.text(80,80,lobbyID,
                     {font: '50px Arial', fill: '#ffffff'});
 
-    var startLabel = game.add.text(80, game.world.height-240,
+    var startLabel = game.add.text(80, game.camera.height-240,
                     'Start Game (press "Q")',
                     {font: '25px Arial', fill: '#ffffff'});
 
-    var selectpuzzleLabel = game.add.text(80, game.world.height-80,
+    var selectpuzzleLabel = game.add.text(80, game.camera.height-80,
                     'Select puzzle (press "W")',
                     {font: '25px Arial', fill: '#ffffff'});
 
-    var closelobbyLabel = game.add.text(80, game.world.height-160,
+    var closelobbyLabel = game.add.text(80, game.camera.height-160,
                     'Close Lobby (press "E")',
                     {font: '25px Arial', fill: '#ffffff'});
 
-    var connectedUsers = game.add.text(game.world.width-320, 25,
+    var connectedUsers = game.add.text(game.camera.width-320, 25,
                     'Connected users:',
                     {font: '25px Arial', fill: '#ffffff'});
 
