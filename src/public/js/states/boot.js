@@ -23,6 +23,10 @@ var bootState = {
       jigsawselect.jigsaws = JSON.parse(listOfPuzzles);
     })
 
+    game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+		game.scale.pageAlignHorizontally = true;
+    game.scale.pageAlignVertically = true;
+
     // Call the load state
     game.state.start('load');
 
