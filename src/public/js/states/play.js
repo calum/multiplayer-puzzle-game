@@ -1,7 +1,7 @@
 // The percentage of the screen which the selection area
 // should take up
 const selectionAreaPercent = 0.2;
-const gameBoardSize = 0.7;
+const gameBoardSize = 0.95;
 
 // boolean to help with screen drag
 var dragging = false;
@@ -13,7 +13,7 @@ var spriteDrag = false;
 // on screen information
 var onScreen;
 var timer;
-var startTime = Date.now();
+var startTime;
 
 // Selection area
 var selectionArea;
@@ -43,6 +43,9 @@ var playState = {
 
 
   create: function() {
+    loadingbar.clear();
+
+    startTime = Date.now();
 
     // Add the puzzle piece selection area
     selectionArea = game.add.graphics(0,0);
@@ -60,7 +63,7 @@ var playState = {
     // place the timer at the top of the game screen
     timer = game.add.text(80, 0,
                     'Time: '+(Date.now()-startTime),
-                    {font: '25px Arial', fill: '#0x0000FF'});
+                    {font: '25px Arial', fill: '#ffffff'});
 
     // The main layout of the game board:
     var graphics = game.add.graphics(0,0);
@@ -174,11 +177,11 @@ var playState = {
 
   updateTimer: function() {
     var timerX = game.camera.position.x+80;
-    var timerY = game.camera.position.y;
+    var timerY = game.camera.position.y+game.camera.height*(1-selectionAreaPercent);
     timer.destroy();
     timer = game.add.text(timerX, timerY,
                     'Time: '+(Math.round((Date.now()-startTime)/1000)),
-                    {font: '25px Arial', fill: '#0x0000FF'});
+                    {font: '25px Arial', fill: '#ffffff'});
     onScreen.add(timer);
   },
 
@@ -189,6 +192,8 @@ var playState = {
 
   Win: function() {
     // game over, you win!
+
+    game.world.setBounds(0,0,"100%","100%")
     game.state.start('win');
   }
 };

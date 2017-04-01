@@ -5,15 +5,15 @@ var multiplayerState = {
     var nameLabel = game.add.text(80,80,'Multiplayer',
                     {font: '50px Arial', fill: '#ffffff'});
 
-    var joinGameLabel = game.add.text(80, game.world.height-240,
+    var joinGameLabel = game.add.text(80, game.camera.height-240,
                     'Join Game (press "Q")',
                     {font: '25px Arial', fill: '#ffffff'});
 
-    var createGameLabel = game.add.text(80, game.world.height-80,
+    var createGameLabel = game.add.text(80, game.camera.height-80,
                     'Create Game (press "W")',
                     {font: '25px Arial', fill: '#ffffff'});
 
-    var homeLabel = game.add.text(80, game.world.height-160,
+    var homeLabel = game.add.text(80, game.camera.height-160,
                     'Home (press "E")',
                     {font: '25px Arial', fill: '#ffffff'});
 

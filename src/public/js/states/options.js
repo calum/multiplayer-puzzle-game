@@ -5,7 +5,7 @@ var optionsState = {
     var nameLabel = game.add.text(80,80,'Options',
                     {font: '50px Arial', fill: '#ffffff'});
 
-    var homeLabel = game.add.text(80, game.world.height-160,
+    var homeLabel = game.add.text(80, game.camera.height-160,
                     'Home (press "E")',
                     {font: '25px Arial', fill: '#ffffff'});
 

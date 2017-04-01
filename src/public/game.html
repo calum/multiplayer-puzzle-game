@@ -30,20 +30,20 @@
         <!-- Load the websockets module -->
         <script src="/socket.io/socket.io.js"></script>
         <script>
-        // create websocket:
-        var socket = io();
+          // create websocket:
+          var socket = io();
 
-        // save the username:
-        var cookie = document.cookie;
-        var username = cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+          // save the username:
+          var cookie = document.cookie;
+          var username = cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 
-        if (!username) {
-          username = 'guest';
-        }
+          if (!username) {
+            username = 'guest';
+          }
 
-        bootState.username = username;
+          bootState.username = username;
 
-        console.log('username: '+username);
+          console.log('username: '+username);
         </script>
 
 
