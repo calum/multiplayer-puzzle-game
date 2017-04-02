@@ -26,6 +26,7 @@ var jigsawselect = {
     // load the puzzles:
     for (let i=0; i<this.jigsaws.length; i++) {
       var jigsaw = this.jigsaws[i];
+      console.log('loading: '+jigsaw);
       game.load.image(jigsaw, '../assets/'+jigsaw+'.png');
     }
   },
@@ -34,31 +35,29 @@ var jigsawselect = {
     var columns = 2;
     var rows = Math.ceil(this.jigsaws.length/columns);
 
-    for (let i=0; i<rows; i++) {
-      var piecesLeft = this.jigsaws.length-i*rows;
-      if (piecesLeft > columns) {
-        piecesLeft = columns;
-      }
-      for (let j=0; j<piecesLeft; j++) {
-        var jigsaw = this.jigsaws[i+j];
+    for (let i=0; i<this.jigsaws.length; i++) {
 
-        var posX = (1+j)*((game.camera.width*0.8)/(this.jigsaws.length+1));
-        var posY = (1+i)*((game.camera.width*0.8)/(this.jigsaws.length+1));
+      var jigsaw = this.jigsaws[i];
 
-        // Add to the map
-        this.jigsawImages[jigsaw] = game.add.sprite(posX, posY, jigsaw);
+      var posX = (1+i)*((game.camera.width*0.8)/(this.jigsaws.length+1));
+      var posY = ((game.camera.width*0.8)/(this.jigsaws.length+1));
 
-        // scale down
-        this.jigsawImages[jigsaw].scale.x *= ((game.camera.width*0.8)/(this.jigsaws.length+1))/this.jigsawImages[jigsaw].width;
-        this.jigsawImages[jigsaw].scale.y *= ((game.camera.width*0.8)/(this.jigsaws.length+1))/this.jigsawImages[jigsaw].height;
+      // Add to the map
+      this.jigsawImages[jigsaw] = game.add.sprite(posX, posY, jigsaw);
 
-        // Add the name:
-        this.jigsawImages[jigsaw].name = jigsaw;
+      // scale down
+      this.jigsawImages[jigsaw].scale.x *= ((game.camera.width*0.8)/(this.jigsaws.length+1))/this.jigsawImages[jigsaw].width;
+      this.jigsawImages[jigsaw].scale.y *= ((game.camera.width*0.8)/(this.jigsaws.length+1))/this.jigsawImages[jigsaw].height;
 
-        // Add the even handler:
-        this.jigsawImages[jigsaw].inputEnabled = true;
-        this.jigsawImages[jigsaw].events.onInputDown.add(this.pickJigsaw, this);
-      }
+      // shift down
+      this.jigsawImages[jigsaw].y += this.jigsawImages[jigsaw].height;
+
+      // Add the name:
+      this.jigsawImages[jigsaw].name = jigsaw;
+
+      // Add the even handler:
+      this.jigsawImages[jigsaw].inputEnabled = true;
+      this.jigsawImages[jigsaw].events.onInputDown.add(this.pickJigsaw, this);
     }
 
     this.addTimes(this.times);

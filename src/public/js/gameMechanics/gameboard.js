@@ -33,12 +33,23 @@ var gameboard = {
     if (game.world.height > game.world.width) {
       boardLength = game.world.width;
     }
+
+    var selectedJigsaw = jigsawselect.selectedJigsaw;
+    if (!selectedJigsaw) {
+      var selectedJigsaw = 'penguin';
+    }
+
+    // Open the properties file:
+    properties = game.cache.getJSON(selectedJigsaw+'_prop');
+    var puzzle_height = properties.overview.height;
+    var puzzle_width = properties.overview.width;
+
     graphics.moveTo(0,0);
     graphics.drawRect(
       game.camera.width*((1-gameBoardSize)/2),
       game.camera.height*((1-gameBoardSize)/2),
       boardLength*(gameBoardSize),
-      boardLength*(gameBoardSize)
+      boardLength*(gameBoardSize)*(puzzle_height/puzzle_width)
     );
   },
 
@@ -60,7 +71,7 @@ var gameboard = {
     var puzzleNumXPieces = properties.overview.horizontalPieces;
     var puzzleNumYPieces = properties.overview.verticalPieces;
 
-    var scale = boardLength*(gameBoardSize)/puzzle_height;
+    var scale = boardLength*(gameBoardSize)/puzzle_width;
 
     var posX = game.camera.width*((1-gameBoardSize)/2);
     var posY = game.camera.height*((1-gameBoardSize)/2);
