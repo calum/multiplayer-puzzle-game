@@ -3,8 +3,9 @@ var winston = require('winston')
 var database = require('./database.js')
 
 var puzzleList = [
-  'linux',
-  'penguin'
+  'penguin',
+  'yoda',
+  'alian'
 ]
 
 // Start the websockets for multiplayer functions
