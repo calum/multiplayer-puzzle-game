@@ -18,6 +18,15 @@ class ServerConnection {
     console.log('username: '+username)
   }
 
+  /**
+  * Called when the client wants to send their
+  * Peerjs Id to the server to connect to other players
+  * Should only be called by PeerConnection
+  **/
+  sendPeerId(id) {
+    this.socket.emit('peerId', id)
+  }
+
   getTimes(query) {
     return new Promise((fulfill) => {
       //Ask the server for the players times

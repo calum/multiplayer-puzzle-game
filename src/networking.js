@@ -2,6 +2,10 @@ var io = require('socket.io')
 var winston = require('winston')
 var database = require('./database.js')
 
+// a game lobby has the properties:
+// {host: {name: username, peerId: peerId}, users: [{name: username, peerId: peerId}]}
+var gameLobbies = []
+
 var puzzleList = [
   'penguin',
   'yoda',
@@ -16,10 +20,16 @@ function start(server) {
 
     // get this users name
     var cookie = socket.request.headers.cookie
-    var username = cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+    var username = cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, "$1")
+    var peerId = null
 
     // send this user the list of puzzles:
     socket.emit('puzzles', JSON.stringify(puzzleList))
+
+    // Get the users peerjs id for joining peers together
+    socket.on('peerId', (msg) => {
+      peerId = msg
+    })
 
     socket.on('puzzles', (msg) => {
       socket.emit('puzzles', JSON.stringify(puzzleList))
