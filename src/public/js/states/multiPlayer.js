@@ -3,19 +3,19 @@ var multiplayerState = {
 
   create: function() {
     var nameLabel = game.add.text(80,80,'Multiplayer',
-                    {font: '50px Arial', fill: '#ffffff'});
+                    {font: '75px Arial', fill: '#ffffff'});
 
     var joinGameLabel = game.add.text(80, game.camera.height-240,
                     'Join Game (press "Q")',
-                    {font: '25px Arial', fill: '#ffffff'});
+                    {font: '50px Arial', fill: '#ffffff'});
 
     var createGameLabel = game.add.text(80, game.camera.height-80,
                     'Create Game (press "W")',
-                    {font: '25px Arial', fill: '#ffffff'});
+                    {font: '50px Arial', fill: '#ffffff'});
 
     var homeLabel = game.add.text(80, game.camera.height-160,
                     'Home (press "E")',
-                    {font: '25px Arial', fill: '#ffffff'});
+                    {font: '50px Arial', fill: '#ffffff'});
 
     var wkey = game.input.keyboard.addKey(Phaser.Keyboard.W);
     var qkey = game.input.keyboard.addKey(Phaser.Keyboard.Q);

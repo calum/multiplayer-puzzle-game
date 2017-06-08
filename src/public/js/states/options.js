@@ -3,11 +3,11 @@ var optionsState = {
   create: function() {
 
     var nameLabel = game.add.text(80,80,'Options',
-                    {font: '50px Arial', fill: '#ffffff'});
+                    {font: '75px Arial', fill: '#ffffff'});
 
     var homeLabel = game.add.text(80, game.camera.height-160,
                     'Home (press "E")',
-                    {font: '25px Arial', fill: '#ffffff'});
+                    {font: '50px Arial', fill: '#ffffff'});
 
     var ekey = game.input.keyboard.addKey(Phaser.Keyboard.E);
 

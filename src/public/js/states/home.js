@@ -11,19 +11,19 @@ var homeState = {
   create: function() {
 
     var nameLabel = game.add.text(80,80,'Home',
-                    {font: '50px Arial', fill: '#ffffff'});
+                    {font: '75px Arial', fill: '#ffffff'});
 
     var singleplayerLabel = game.add.text(80, game.camera.height-240,
                     'Single Player',
-                    {font: '25px Arial', fill: '#ffffff'});
+                    {font: '50px Arial', fill: '#ffffff'});
 
     var optionsLabel = game.add.text(80, game.camera.height-80,
                     'Options',
-                    {font: '25px Arial', fill: '#ffffff'});
+                    {font: '50px Arial', fill: '#ffffff'});
 
     var multiplayerLabel = game.add.text(80, game.camera.height-160,
                     'Multiplayer',
-                    {font: '25px Arial', fill: '#ffffff'});
+                    {font: '50px Arial', fill: '#ffffff'});
 
     // Add clickable links:
     singleplayerLabel.inputEnabled = true;

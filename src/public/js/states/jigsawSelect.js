@@ -32,6 +32,13 @@ var jigsawselect = {
   },
 
   create: function() {
+
+    var homeLabel = game.add.text(80, game.camera.height-160,
+                    'Home (press "E")',
+                    {font: '50px Arial', fill: '#ffffff'});
+    homeLabel.inputEnabled = true;
+    homeLabel.events.onInputDown.add(optionsState.home, this);
+
     var columns = 2;
     var rows = Math.ceil(this.jigsaws.length/columns);
 
