@@ -8,7 +8,30 @@ var winState = {
     var finishingTime = (Date.now() - startTime)/1000;
 
     // send the end time to the server
-    socket.emit('time', JSON.stringify({time: finishingTime, jigsaw: jigsawselect.selectedJigsaw || 'penguin'}));
+    serverConnection.addTime(JSON.stringify({time: finishingTime, jigsaw: jigsawselect.selectedJigsaw || 'penguin'})).then((topTimes) => {
+      // get this users best times for this jigsaw
+
+      var topTimes = JSON.parse(topTimes);
+
+      // remove the loading messages:
+      winState.times.time1.destroy();
+      winState.times.time2.destroy();
+      winState.times.time3.destroy();
+
+      // Add the top three times achieved
+      winState.times.time1 = game.add.text(80, game.camera.height*0.3,
+        '1) '+topTimes[0],
+        {font: '25px Arial', fill: '#ffffff'});
+      winState.times.time2 = game.add.text(80, game.camera.height*0.4,
+        '2) '+topTimes[1],
+        {font: '25px Arial', fill: '#ffffff'});
+      winState.times.time3 = game.add.text(80, game.camera.height*0.5,
+        '3) '+topTimes[2],
+        {font: '25px Arial', fill: '#ffffff'});
+    }, (err) => {
+      console.log(err)
+      alert(err)
+    })
 
     var posX = game.camera.width*((1-gameBoardSize)/2);
     var posY = game.camera.height*((1-gameBoardSize - selectionAreaPercent)/2);
@@ -45,28 +68,6 @@ var winState = {
     winLabel.events.onInputDown.add(this.restart, this);
     startLabel.inputEnabled = true;
     startLabel.events.onInputDown.add(this.restart, this);
-
-    socket.on('times', function(topTimes) {
-      // get this users best times for this jigsaw
-
-      var topTimes = JSON.parse(topTimes);
-
-      // remove the loading messages:
-      winState.times.time1.destroy();
-      winState.times.time2.destroy();
-      winState.times.time3.destroy();
-
-      // Add the top three times achieved
-      winState.times.time1 = game.add.text(80, game.camera.height*0.3,
-        '1) '+topTimes[0],
-        {font: '25px Arial', fill: '#ffffff'});
-      winState.times.time2 = game.add.text(80, game.camera.height*0.4,
-        '2) '+topTimes[1],
-        {font: '25px Arial', fill: '#ffffff'});
-      winState.times.time3 = game.add.text(80, game.camera.height*0.5,
-        '3) '+topTimes[2],
-        {font: '25px Arial', fill: '#ffffff'});
-    });
   },
 
   restart: function() {

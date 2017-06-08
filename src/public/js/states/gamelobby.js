@@ -1,4 +1,4 @@
-var users = ['John', 'Calum'];
+var users = [];
 var usernames = {};
 
 var gamelobbyState = {
@@ -28,11 +28,6 @@ var gamelobbyState = {
                     'Connected users:',
                     {font: '25px Arial', fill: '#ffffff'});
 
-
-    var wkey = game.input.keyboard.addKey(Phaser.Keyboard.W);
-    var qkey = game.input.keyboard.addKey(Phaser.Keyboard.Q);
-    var ekey = game.input.keyboard.addKey(Phaser.Keyboard.E);
-
     // Setup text event for clicks
     startLabel.inputEnabled = true;
     startLabel.events.onInputDown.add(this.startGame, this);
@@ -43,11 +38,6 @@ var gamelobbyState = {
     closelobbyLabel.inputEnabled = true;
     closelobbyLabel.events.onInputDown.add(this.close, this);
 
-
-    // When "w" is pressed, call the start function
-    qkey.onDown.addOnce(this.startGame, this);
-    wkey.onDown.addOnce(this.selectpuzzle, this);
-    ekey.onDown.addOnce(this.close, this);
   },
 
   update: function() {

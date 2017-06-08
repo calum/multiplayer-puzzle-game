@@ -13,14 +13,12 @@ var jigsawselect = {
   // loads all the assets
   preload: function() {
     //Ask the server for the players times
-    socket.emit('getTimes', 'puzzles');
-
-    socket.on('getTimes', function(times) {
+    serverConnection.getTimes('puzzles').then((times) => {
       var times = JSON.parse(times);
 
       // add these times below the jigsaw pieces:
       jigsawselect.times = times;
-    });
+    })
 
 
     // load the puzzles:

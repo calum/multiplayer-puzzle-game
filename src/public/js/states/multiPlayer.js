@@ -17,16 +17,6 @@ var multiplayerState = {
                     'Home (press "E")',
                     {font: '50px Arial', fill: '#ffffff'});
 
-    var wkey = game.input.keyboard.addKey(Phaser.Keyboard.W);
-    var qkey = game.input.keyboard.addKey(Phaser.Keyboard.Q);
-    var ekey = game.input.keyboard.addKey(Phaser.Keyboard.E);
-
-
-    // When "w" is pressed, call the start function
-    qkey.onDown.addOnce(this.joinGame, this);
-    wkey.onDown.addOnce(this.createGame, this);
-    ekey.onDown.addOnce(this.home, this);
-
     // Add clickable links:
     joinGameLabel.inputEnabled = true;
     joinGameLabel.events.onInputDown.add(this.joinGame, this);

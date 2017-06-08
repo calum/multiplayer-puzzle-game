@@ -35,10 +35,6 @@ var homeState = {
 
     // add menu sounds
     sounds.clickSounds.push(game.add.audio('click1'));
-
-    // Ask the server for the puzzles:
-    socket.emit('puzzles', 'Gimmie puzzle list');
-
   },
 
 
