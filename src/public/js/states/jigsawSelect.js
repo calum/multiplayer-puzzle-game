@@ -13,14 +13,12 @@ var jigsawselect = {
   // loads all the assets
   preload: function() {
     //Ask the server for the players times
-    socket.emit('getTimes', 'puzzles');
-
-    socket.on('getTimes', function(times) {
+    serverConnection.getTimes('puzzles').then((times) => {
       var times = JSON.parse(times);
 
       // add these times below the jigsaw pieces:
       jigsawselect.times = times;
-    });
+    })
 
 
     // load the puzzles:
@@ -32,6 +30,13 @@ var jigsawselect = {
   },
 
   create: function() {
+
+    var homeLabel = game.add.text(80, game.camera.height-160,
+                    'Home (press "E")',
+                    {font: '50px Arial', fill: '#ffffff'});
+    homeLabel.inputEnabled = true;
+    homeLabel.events.onInputDown.add(optionsState.home, this);
+
     var columns = 2;
     var rows = Math.ceil(this.jigsaws.length/columns);
 
