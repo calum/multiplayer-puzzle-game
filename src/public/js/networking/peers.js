@@ -70,7 +70,6 @@ class PeerConnection {
     conn.on('open', () => {
       // Receive messages
       conn.on('data', (data) => {
-        console.log('Received', data)
         peerConn.addMessage(data)
       })
     })
@@ -84,11 +83,11 @@ class PeerConnection {
     var peerConn = this
 
     this.peer.on('connection', (conn) => {
+      console.log('aquired new connection')
       peerConn.addConnection(conn)
 
       // Receive messages
       conn.on('data', (data) => {
-        console.log('Received', data)
         peerConn.addMessage(data)
         peerConn.sendData(data, conn)
       })

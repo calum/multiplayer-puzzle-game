@@ -27,6 +27,34 @@ class ServerConnection {
     this.socket.emit('peerId', id)
   }
 
+  /**
+  * Called when a client wants to create
+  * a game lobby for multiplayer
+  **/
+  createLobby(name) {
+    this.socket.emit('lobby', JSON.stringify({type: 'create', name: name}))
+  }
+
+  /**
+  * Called when a client wants to
+  * join a game lobby for multiplayer
+  **/
+  getLobbyHostId(name) {
+    this.socket.emit('lobby', JSON.stringify({type: 'join', name: name}))
+
+    return new Promise((fulfill, reject) => {
+      this.socket.on('lobby', (message) => {
+        var response = JSON.parse(message)
+
+        if (response.status == 'error') {
+          return reject(response.message)
+        }
+
+        return fulfill(response.peerId)
+      })
+    })
+  }
+
   getTimes(query) {
     return new Promise((fulfill) => {
       //Ask the server for the players times

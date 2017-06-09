@@ -4,7 +4,7 @@ var database = require('./database.js')
 
 // a game lobby has the properties:
 // {host: {name: username, peerId: peerId}, users: [{name: username, peerId: peerId}]}
-var gameLobbies = []
+var gameLobbies = {}
 
 var puzzleList = [
   'penguin',
@@ -29,6 +29,31 @@ function start(server) {
     // Get the users peerjs id for joining peers together
     socket.on('peerId', (msg) => {
       peerId = msg
+    })
+
+    // deal with requests to create a group
+    // request of the form: msg = {type: 'create', name: 'name'}
+    //                            {type: 'join', name: 'name'}
+    socket.on('lobby', (msg) => {
+      var request = JSON.parse(msg)
+      switch (request.type) {
+        case 'create':
+          gameLobbies[request.name] = {host: username, peerId: peerId}
+          console.log('created game lobby: ')
+          console.log(gameLobbies)
+          break
+        case 'join':
+          if (!gameLobbies[request.name]) {
+            var errorMsg = {status: 'error', message: 'No lobby found with that name'}
+            socket.emit('lobby', JSON.stringify(errorMsg))
+            break
+          }
+          var successMsg = {status: 'valid', peerId: gameLobbies[request.name].peerId}
+          socket.emit('lobby', JSON.stringify(successMsg))
+          console.log('sent game lobby: ')
+          console.log(successMsg)
+          break
+      }
     })
 
     socket.on('puzzles', (msg) => {
