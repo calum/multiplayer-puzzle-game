@@ -111,7 +111,12 @@ var playState = {
       frames++
       if (frames > 10) {
         frames = 0
-        gameLobby.update(spriteDrag)
+        // check that the mouse is over the selection area
+        if (game.input.activePointer.position.y > game.camera.height*(1-selectionAreaPercent) && game.input.activePointer.isDown) {
+          // do nothing
+        } else {
+          gameLobby.update(spriteDrag)
+        }
       }
     }
 
@@ -204,7 +209,12 @@ var playState = {
       spriteDrag = draggingSprite
     } else {
       spriteDrag = false
-      gameLobby.update(draggingSprite, true)
+      // do not update other peers with this piece if it is still in the selection area
+      if ( unsetPieces.children.indexOf(draggingSprite) > -1 && draggingSprite.position.y >= game.camera.position.y + game.camera.height*(1-selectionAreaPercent)) {
+        // do nothing
+      } else {
+        gameLobby.update(draggingSprite, true)
+      }
     }
   },
 

@@ -1,15 +1,13 @@
-var users = []
+var users = new Set()
 var usernames = {}
+var player
 
 var gamelobbyState = {
 
   create: function() {
 
     var lobbyID = localStorage.getItem('lobbyID')
-    var player = localStorage.getItem('username')
-    users.push(player)
-
-    gameLobby.addPlayer(player)
+    player = localStorage.getItem('username')
 
     var nameLabel = game.add.text(80,80,lobbyID,
                     {font: '50px Arial', fill: '#ffffff'})
@@ -40,14 +38,27 @@ var gamelobbyState = {
     closelobbyLabel.inputEnabled = true
     closelobbyLabel.events.onInputDown.add(this.close, this)
 
+    gameLobby.addPlayer(player)
+
   },
 
   update: function() {
 
+
+    users.add(player)
+    gameLobby.addPlayer(player)
     gameLobby.getUpdate()
 
     // Keep updating the connected users list:
-    for (let i=0; i<users.length; i++) {
+    users.forEach((user) => {
+      if (!usernames[user]) {
+        usernames[user] = game.add.text(game.world.width-320, 30*(users.size+2),
+                          user,
+                          {font: '20px Arial', fill: '#ffffff'})
+      }
+    })
+    /*
+    for (let i=0; i<users.size; i++) {
       if (usernames[users[i]]) {
         continue
       }
@@ -55,6 +66,7 @@ var gamelobbyState = {
                       users[i],
                       {font: '20px Arial', fill: '#ffffff'})
     }
+    */
   },
 
   startGame: function() {

@@ -30,15 +30,20 @@
 
       <form class="form-signin" action="/" method="POST" enctype="multipart/form-data" id="form" >
         <h2 class="form-signin-heading" id="message">Please sign in</h2>
-        <label for="inputName" class="sr-only">Display Name</label>
-        <input name="inputName" type="text" id="inputName" class="form-control" placeholder="name" required autofocus>
+        <label for="inputDisplayName" class="sr-only">Display Name</label>
+        <input name="inputDisplayName" type="text" id="inputDisplayName" class="form-control" placeholder="name"  autofocus>
         <label for="inputName" class="sr-only">Account name</label>
-        <input name="inputName" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <input name="inputName" type="email" id="inputEmail" class="form-control" placeholder="Email address"  autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input name="inputPassword" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <input name="inputPassword" type="password" id="inputPassword" class="form-control" placeholder="Password" >
         <div class="checkbox">
           <label>
             <input type="checkbox" name="rememberMe" value="remember-me"> Remember me
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="guest" value="guest"> Login as guest
           </label>
         </div>
         <div class="checkbox">

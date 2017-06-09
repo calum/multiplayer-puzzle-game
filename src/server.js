@@ -81,11 +81,16 @@ app.post('/', upload.array(), (req,res) => {
       }
 
       // send the cookie, yum
-      res.cookie('account', { name: req.body.inputName || 'guest#'+uuid(), user: req.body.inputEmail})
-      res.cookie('username', req.body.inputName)
+      res.cookie('account', { name: req.body.inputDisplayName || 'guest#'+uuid(), user: req.body.inputEmail})
+      res.cookie('username', req.body.inputDisplayName)
 
       res.sendFile(path.join(__dirname+'/public/game.html'))
     })
+  } else if (req.body.guest) {
+    // send the cookie, yum
+    res.cookie('account', { name: 'guest#'+uuid(), user: req.body.inputEmail})
+    res.cookie('username', req.body.inputDisplayName || 'guest')
+    res.sendFile(path.join(__dirname+'/public/game.html'))
   }
   else {
     database.verifyUser(req.body.inputEmail, req.body.inputPassword, (message) => {

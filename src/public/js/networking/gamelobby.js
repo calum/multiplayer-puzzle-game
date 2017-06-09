@@ -62,6 +62,7 @@ class GameLobby {
     if (!this.connected) {
       return
     }
+
     var msg = {
       status: 300,
       sprite: {
@@ -93,7 +94,7 @@ class GameLobby {
           }
           break
         case 100:
-          users.push(msg.username)
+          users.add(msg.username)
           break
       }
     }

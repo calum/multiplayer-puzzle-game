@@ -7,6 +7,7 @@ class ServerConnection {
 
     // save the username:
     var cookie = document.cookie
+    console.log(cookie)
     var username = cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, "$1")
 
     if (!username) {
