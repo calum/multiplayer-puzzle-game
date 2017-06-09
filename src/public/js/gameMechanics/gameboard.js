@@ -1,25 +1,25 @@
 // This two dimensional array holds the final
 // placement of the puzzle
-var puzzlePosition;
-var puzzlePieces = {};
-var puzzlePieceOrder;
-var boardLength;
+var puzzlePosition
+var puzzlePieces = {}
+var puzzlePieceOrder
+var boardLength
 
 // Group to hold all the pices in the que
-var unsetPieces;
-var spriteunset;
-var movedPieces;
-var setPieces;
+var unsetPieces
+var spriteunset
+var movedPieces
+var setPieces
 
 // sounds
-var jigsawsounds = [];
+var jigsawsounds = []
 
 // radius of pixels when placed within the piece
 // will snap into the correct position
-var snapradius = 7;
+var snapradius = 7
 
 // properties file:
-var properties;
+var properties
 
 var gameboard = {
 
@@ -147,7 +147,7 @@ var gameboard = {
   },
 
   onDragStart: function(sprite, pointer) {
-    playState.spriteDrag(true);
+    playState.spriteDrag(sprite, true);
   },
 
   dragUpdate: function(sprite, pointer, dragX, dragY, snapPoint) {
@@ -167,8 +167,10 @@ var gameboard = {
 
   },
 
-  onDragStop: function(sprite, pointer) {
-    playState.spriteDrag(false);
+  onDragStop: function(sprite, pointer, peer) {
+    if (!peer) {
+      playState.spriteDrag(sprite, false)
+    }
 
     // Remove this piece from the selection area if it has been moved enough
     if ( unsetPieces.children.indexOf(sprite) > -1 && sprite.position.y < game.camera.position.y + game.camera.height*(1-selectionAreaPercent)) {

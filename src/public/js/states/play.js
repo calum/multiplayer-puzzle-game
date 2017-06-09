@@ -1,22 +1,24 @@
 // The percentage of the screen which the selection area
 // should take up
-const selectionAreaPercent = 0.2;
-const gameBoardSize = 0.95;
+const selectionAreaPercent = 0.2
+const gameBoardSize = 0.95
 
 // boolean to help with screen drag
-var dragging = false;
-var selectionAreaDragging = false;
-var touchX;
-var touchY;
-var spriteDrag = false;
+var dragging = false
+var selectionAreaDragging = false
+var touchX
+var touchY
+var spriteDrag = false
 
 // on screen information
-var onScreen;
-var timer;
-var startTime;
+var onScreen
+var timer
+var startTime
+
+var frames = 0
 
 // Selection area
-var selectionArea;
+var selectionArea
 
 var playState = {
 
@@ -96,16 +98,32 @@ var playState = {
   update: function() {
 
     // drag the screen
-    this.screenDrag();
+    this.screenDrag()
 
     // update timer:
-    this.updateTimer();
+    this.updateTimer()
 
     // update the selection area
-    this.updateSelectionArea();
+    this.updateSelectionArea()
+
+    // send sprite info to peers
+    if (spriteDrag) {
+      frames++
+      if (frames > 10) {
+        frames = 0
+        // check that the mouse is over the selection area
+        if (game.input.activePointer.position.y > game.camera.height*(1-selectionAreaPercent) && game.input.activePointer.isDown) {
+          // do nothing
+        } else {
+          gameLobby.update(spriteDrag)
+        }
+      }
+    }
+
+    gameLobby.getUpdate()
 
     // Bring onscreen graphics to the top
-    game.world.bringToTop(onScreen);
+    game.world.bringToTop(onScreen)
 
   },
 
@@ -186,8 +204,18 @@ var playState = {
   },
 
   // Called when a puzzle piece is being dragged
-  spriteDrag: function(dragging) {
-    spriteDrag = dragging;
+  spriteDrag: function(draggingSprite, dragging) {
+    if (dragging) {
+      spriteDrag = draggingSprite
+    } else {
+      spriteDrag = false
+      // do not update other peers with this piece if it is still in the selection area
+      if ( unsetPieces.children.indexOf(draggingSprite) > -1 && draggingSprite.position.y >= game.camera.position.y + game.camera.height*(1-selectionAreaPercent)) {
+        // do nothing
+      } else {
+        gameLobby.update(draggingSprite, true)
+      }
+    }
   },
 
   Win: function() {
